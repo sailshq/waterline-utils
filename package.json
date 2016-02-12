@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "Parse Waterline queries into normalized chunks",
   "scripts": {
-    "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
+    "test": "node ./node_modules/mocha/bin/mocha --recursive",
+    "fasttest": "node ./node_modules/mocha/bin/mocha --recursive",
+    "pretest": "npm run lint",
+    "lint": "eslint machines test"
   },
   "keywords": [
     "waterline query parser",
@@ -14,11 +17,14 @@
   ],
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "license": "MIT",
-  "dependencies":{
+  "dependencies": {
+    "lodash": "4.3.0",
     "machine": "10.4.0"
   },
   "devDependencies": {
-
+    "eslint": "1.10.3",
+    "espree": "3.0.1",
+    "mocha": "2.3.4"
   },
   "machinepack": {
     "friendlyName": "Waterline Query Parser",
