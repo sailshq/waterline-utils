@@ -1,0 +1,28 @@
+{
+  "name": "machinepack-waterline-query-parser",
+  "version": "0.1.0",
+  "description": "Parse Waterline queries into normalized chunks",
+  "scripts": {
+    "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
+  },
+  "keywords": [
+    "waterline query parser",
+    "waterline",
+    "sails",
+    "machines",
+    "machinepack"
+  ],
+  "author": "Cody Stoltman <particlebanana@gmail.com>",
+  "license": "MIT",
+  "dependencies":{
+    "machine": "10.4.0"
+  },
+  "devDependencies": {
+
+  },
+  "machinepack": {
+    "friendlyName": "Waterline Query Parser",
+    "machineDir": "machines/",
+    "machines": []
+  }
+}
