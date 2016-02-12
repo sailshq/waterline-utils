@@ -29,6 +29,9 @@
   "machinepack": {
     "friendlyName": "Waterline Query Parser",
     "machineDir": "machines/",
-    "machines": []
+    "machines": [
+      "tokenizer",
+      "analyzer"
+    ]
   }
 }
