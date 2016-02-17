@@ -2,12 +2,15 @@ var Tokenizer = require('../../index').tokenizer;
 var assert = require('assert');
 
 describe('Tokenizer ::', function() {
-  describe('FROM statements', function() {
-    it('should generate a valid token array when FROM is used', function(done) {
+  describe('OPTS', function() {
+    it('should generate a valid token array when a SCHEMA is used', function(done) {
       Tokenizer({
         expression: {
-          select: '*',
-          from: 'books'
+          select: ['*'],
+          from: 'books',
+          opts: {
+            schema: 'foo'
+          }
         }
       })
       .exec(function(err, result) {
@@ -19,7 +22,10 @@ describe('Tokenizer ::', function() {
           { type: 'ENDIDENTIFIER', value: 'SELECT' },
           { type: 'IDENTIFIER', value: 'FROM' },
           { type: 'VALUE', value: 'books' },
-          { type: 'ENDIDENTIFIER', value: 'FROM' }
+          { type: 'ENDIDENTIFIER', value: 'FROM' },
+          { type: 'IDENTIFIER', value: 'SCHEMA' },
+          { type: 'VALUE', value: 'foo' },
+          { type: 'ENDIDENTIFIER', value: 'SCHEMA' }
         ]);
 
         return done();
