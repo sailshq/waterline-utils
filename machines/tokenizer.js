@@ -83,7 +83,8 @@ module.exports = {
       '<>': 'OPERATOR',
       '<=': 'OPERATOR',
       '>=': 'OPERATOR',
-      'like': 'OPERATOR'
+      'like': 'OPERATOR',
+      'opts': 'OPTS'
     };
 
     // These are the Data Manipulation Identifiers that denote a subquery
@@ -307,6 +308,26 @@ module.exports = {
           // If the identifier is a UNIONALL
           if (identifiers[key] === 'UNIONALL') {
             processUnion(obj[key], 'UNIONALL');
+            return;
+          }
+
+          //  ╔═╗╔═╗╔╦╗╔═╗
+          //  ║ ║╠═╝ ║ ╚═╗
+          //  ╚═╝╩   ╩ ╚═╝
+
+          // Handle any known values in the opts. Opts must be a dictionary.
+          if (identifiers[key] === 'OPTS') {
+            if (!_.isPlainObject(obj[key])) {
+              return;
+            }
+
+            _.each(obj[key], function processOpt(val, key) {
+              // Handle PG schema values
+              if (key === 'schema') {
+                return processSchema(val);
+              }
+            });
+
             return;
           }
 
@@ -536,23 +557,6 @@ module.exports = {
     var processFrom = function processFrom(value) {
       // Check if a schema is being used
       if (_.isPlainObject(value)) {
-        if (value.schema) {
-          results.push({
-            type: 'IDENTIFIER',
-            value: 'SCHEMA'
-          });
-
-          results.push({
-            type: 'VALUE',
-            value: value.schema
-          });
-
-          results.push({
-            type: 'ENDIDENTIFIER',
-            value: 'SCHEMA'
-          });
-        }
-
         // Add the FROM identifier
         results.push({
           type: 'IDENTIFIER',
@@ -591,6 +595,27 @@ module.exports = {
       results.push({
         type: 'ENDIDENTIFIER',
         value: 'FROM'
+      });
+    };
+
+
+    //  ╔═╗╔═╗╦ ╦╔═╗╔╦╗╔═╗  ╔═╗╔═╗╔╦╗
+    //  ╚═╗║  ╠═╣║╣ ║║║╠═╣  ║ ║╠═╝ ║
+    //  ╚═╝╚═╝╩ ╩╚═╝╩ ╩╩ ╩  ╚═╝╩   ╩
+    var processSchema = function processSchema(value) {
+      results.push({
+        type: 'IDENTIFIER',
+        value: 'SCHEMA'
+      });
+
+      results.push({
+        type: 'VALUE',
+        value: value
+      });
+
+      results.push({
+        type: 'ENDIDENTIFIER',
+        value: 'SCHEMA'
       });
     };
 
