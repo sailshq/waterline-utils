@@ -48,6 +48,7 @@ module.exports = {
       'select': 'SELECT',
       'from': 'FROM',
       'or': 'OR',
+      'and': 'AND',
       'not': 'NOT',
       'in': 'IN',
       'distinct': 'DISTINCT',
@@ -149,6 +150,12 @@ module.exports = {
           // If the identifier is an OR, start a group and add each token.
           if (identifiers[key] === 'OR') {
             processOr(obj[key]);
+            return;
+          }
+
+          // If the identifier is an AND, start a group and add each token.
+          if (identifiers[key] === 'AND') {
+            processAnd(obj[key]);
             return;
           }
 
@@ -861,6 +868,46 @@ module.exports = {
       results.push({
         type: 'ENDCONDITION',
         value: 'OR'
+      });
+    };
+
+
+    //  ╔═╗╔╗╔╔╦╗  ╔═╗╦═╗╔═╗╦ ╦╔═╗╦╔╗╔╔═╗
+    //  ╠═╣║║║ ║║  ║ ╦╠╦╝║ ║║ ║╠═╝║║║║║ ╦
+    //  ╩ ╩╝╚╝═╩╝  ╚═╝╩╚═╚═╝╚═╝╩  ╩╝╚╝╚═╝
+    var processAnd = function processAnd(value) {
+      // Only process grouped AND's if the value is an array
+      if (!_.isArray(value)) {
+        return;
+      }
+
+      // Add the AND token
+      results.push({
+        type: 'CONDITION',
+        value: 'AND'
+      });
+
+      // For each condition in the OR, add a group token and process the criteria.
+      _.forEach(value, function appendAndCrieria(criteria, idx) {
+        // Start a group
+        results.push({
+          type: 'GROUP',
+          value: idx
+        });
+
+        tokenizeObject(criteria);
+
+        // End a group
+        results.push({
+          type: 'ENDGROUP',
+          value: idx
+        });
+      });
+
+      // Close the condition
+      results.push({
+        type: 'ENDCONDITION',
+        value: 'AND'
       });
     };
 

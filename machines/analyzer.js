@@ -267,6 +267,11 @@ module.exports = {
           chunk += JSON.stringify(token) + ',';
           return;
         }
+
+        if (token.type === 'CONDITION' && token.value === 'AND') {
+          chunk += JSON.stringify(token) + ',';
+          return;
+        }
       });
 
       // Ensure the results don't end with a trailing comma
