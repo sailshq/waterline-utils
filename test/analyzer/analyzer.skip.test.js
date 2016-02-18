@@ -3,12 +3,12 @@ var tokenize = require('../support/tokenize');
 var assert = require('assert');
 
 describe('Analyzer ::', function() {
-  describe('OFFSET statements', function() {
-    it('should generate a valid group when OFFSET is used', function(done) {
+  describe('SKIP statements', function() {
+    it('should generate a valid group when SKIP is used', function(done) {
       var tokens = tokenize({
         select: '*',
         from: 'users',
-        offset: 10
+        skip: 10
       });
 
       Analyzer({
@@ -27,7 +27,7 @@ describe('Analyzer ::', function() {
             { type: 'VALUE', value: 'users' }
           ],
           [
-            { type: 'IDENTIFIER', value: 'OFFSET' },
+            { type: 'IDENTIFIER', value: 'SKIP' },
             { type: 'VALUE', value: 10 }
           ]
         ]);
