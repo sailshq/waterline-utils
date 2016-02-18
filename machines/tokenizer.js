@@ -57,7 +57,7 @@ module.exports = {
       'sum': 'SUM',
       'avg': 'AVG',
       'limit': 'LIMIT',
-      'offset': 'OFFSET',
+      'skip': 'SKIP',
       'groupBy': 'GROUPBY',
       'orderBy': 'ORDERBY',
       'where': 'WHERE',
@@ -270,9 +270,9 @@ module.exports = {
             return;
           }
 
-          // If the indetifier is an OFFSER
-          if (identifiers[key] === 'OFFSET') {
-            processPagination(obj[key], 'OFFSET');
+          // If the indetifier is an SKIP
+          if (identifiers[key] === 'SKIP') {
+            processPagination(obj[key], 'SKIP');
             return;
           }
 
