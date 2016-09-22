@@ -18,13 +18,13 @@
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.3.0",
-    "machine": "10.4.0"
+    "lodash": "3.10.1",
+    "machine": "12.4.0"
   },
   "devDependencies": {
-    "eslint": "1.10.3",
-    "espree": "3.0.1",
-    "mocha": "2.3.4"
+    "eslint": "3.5.0",
+    "espree": "3.3.0",
+    "mocha": "3.0.2"
   },
   "machinepack": {
     "friendlyName": "Waterline Query Parser",
