@@ -1,5 +1,5 @@
 {
-  "name": "machinepack-waterline-query-parser",
+  "name": "waterline-query-parser",
   "version": "1.0.0",
   "description": "Parse Waterline queries into normalized chunks",
   "scripts": {
@@ -32,6 +32,11 @@
     "machines": [
       "tokenizer",
       "analyzer"
-    ]
+    ],
+    "testsUrl": "https://travis-ci.org/treelinehq/waterline-query-parser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:treelinehq/waterline-query-parser.git"
   }
 }
