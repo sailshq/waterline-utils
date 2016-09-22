@@ -1,6 +1,6 @@
 {
   "name": "machinepack-waterline-query-parser",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Parse Waterline queries into normalized chunks",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha --recursive",
