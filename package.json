@@ -32,6 +32,11 @@
     "machines": [
       "tokenizer",
       "analyzer"
-    ]
+    ],
+    "testsUrl": "https://travis-ci.org/treelinehq/waterline-query-parser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:treelinehq/waterline-query-parser.git"
   }
 }
