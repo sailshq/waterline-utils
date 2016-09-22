@@ -1,5 +1,5 @@
 {
-  "name": "machinepack-waterline-query-parser",
+  "name": "waterline-query-parser",
   "version": "1.0.0",
   "description": "Parse Waterline queries into normalized chunks",
   "scripts": {
