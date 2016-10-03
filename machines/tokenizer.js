@@ -85,7 +85,8 @@ module.exports = {
       '<=': 'OPERATOR',
       '>=': 'OPERATOR',
       'like': 'OPERATOR',
-      'opts': 'OPTS'
+      'opts': 'OPTS',
+      'returning': 'RETURNING'
     };
 
     // These are the Data Manipulation Identifiers that denote a subquery
@@ -289,6 +290,12 @@ module.exports = {
               return;
             }
             processAs(obj[key]);
+            return;
+          }
+
+          // If the indetifier is an RETURNING
+          if (identifiers[key] === 'RETURNING') {
+            processReturning(obj[key]);
             return;
           }
 
@@ -1182,6 +1189,37 @@ module.exports = {
       results.push({
         type: 'ENDIDENTIFIER',
         value: 'AS'
+      });
+    };
+
+
+    //  ╦═╗╔═╗╔╦╗╦ ╦╦═╗╔╗╔╦╔╗╔╔═╗
+    //  ╠╦╝║╣  ║ ║ ║╠╦╝║║║║║║║║ ╦
+    //  ╩╚═╚═╝ ╩ ╚═╝╩╚═╝╚╝╩╝╚╝╚═╝
+    var processReturning = function processReturning(values) {
+      // If values is not an array, make it one so that we can process each
+      // element.
+      if (!_.isArray(values)) {
+        values = [values];
+      }
+
+      // Process each item in the RETURNING statement.
+      _.each(values, function processReturningKey(val) {
+        // Add the RETURNING to the results
+        results.push({
+          type: 'IDENTIFIER',
+          value: 'RETURNING'
+        });
+
+        results.push({
+          type: 'VALUE',
+          value: val
+        });
+
+        results.push({
+          type: 'ENDIDENTIFIER',
+          value: 'RETURNING'
+        });
       });
     };
 
