@@ -55,10 +55,7 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'books' },
           { type: 'ENDIDENTIFIER', value: 'INTO' },
           { type: 'IDENTIFIER', value: 'RETURNING' },
-          { type: 'VALUE', value: 'author' },
-          { type: 'ENDIDENTIFIER', value: 'RETURNING' },
-          { type: 'IDENTIFIER', value: 'RETURNING' },
-          { type: 'VALUE', value: 'title' },
+          { type: 'VALUE', value: ['author', 'title'] },
           { type: 'ENDIDENTIFIER', value: 'RETURNING' }
         ]);
 

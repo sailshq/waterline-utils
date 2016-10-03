@@ -66,11 +66,7 @@ describe('Analyzer ::', function() {
           ],
           [
             { type: 'IDENTIFIER', value: 'RETURNING' },
-            { type: 'VALUE', value: 'author' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'RETURNING' },
-            { type: 'VALUE', value: 'title' }
+            { type: 'VALUE', value: ['author', 'title'] }
           ]
         ]);
 
