@@ -22,8 +22,10 @@
     "machine": "12.4.0"
   },
   "devDependencies": {
+    "benchmark": "2.1.1",
     "eslint": "3.5.0",
     "espree": "3.3.0",
+    "microtime": "2.1.1",
     "mocha": "3.0.2"
   },
   "machinepack": {
