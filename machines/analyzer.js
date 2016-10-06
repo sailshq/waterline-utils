@@ -17,7 +17,7 @@ module.exports = {
 
     tokens: {
       description: 'The tokenized values that make up the query',
-      example: [{}],
+      example: '===',
       required: true
     }
 
@@ -29,7 +29,7 @@ module.exports = {
     success: {
       variableName: 'result',
       description: 'The grouped and ordered results',
-      example: [[]]
+      example: '==='
     }
 
   },

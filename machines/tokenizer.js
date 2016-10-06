@@ -17,7 +17,7 @@ module.exports = {
 
     expression: {
       description: 'An RQL expression to be tokenized.',
-      example: {},
+      example: '===',
       required: true
     }
 
@@ -29,10 +29,11 @@ module.exports = {
     success: {
       variableName: 'result',
       description: 'The tokenized expression',
-      example: [{
-        type: 'IDENTIFIER',
-        value: '*'
-      }]
+      example: '==='
+      // example: [{
+      //   type: 'IDENTIFIER',
+      //   value: '==='
+      // }]
     }
 
   },
