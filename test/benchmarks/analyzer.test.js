@@ -54,35 +54,31 @@ describe('Benchmark :: Analyzer', function() {
     }).execSync();
   });
 
-  it('should be performant enough', function(done) {
+  it('should be performant enough', function() {
     runBenchmarks('Analyzer.execSync()', [
-      function analyzeSelectSet(next) {
+      function analyzeSelectSet() {
         Analyzer({
           tokens: tokens.select
         }).execSync();
-        return next();
       },
 
-      function analyzeInsertSet(next) {
+      function analyzeInsertSet() {
         Analyzer({
           tokens: tokens.insert
         }).execSync();
-        return next();
       },
 
-      function analyzeUpdateSet(next) {
+      function analyzeUpdateSet() {
         Analyzer({
           tokens: tokens.update
         }).execSync();
-        return next();
       },
 
-      function analyzeDeleteSet(next) {
+      function analyzeDeleteSet() {
         Analyzer({
           tokens: tokens.delete
         }).execSync();
-        return next();
       }
-    ], done);
+    ]);
   });
 });

@@ -1,32 +1,22 @@
 var _ = require('lodash');
 var Benchmark = require('benchmark');
 
-module.exports = function runBenchmarks(name, testFns, done) {
+module.exports = function runBenchmarks(name, testFns) {
   var suite = new Benchmark.Suite({
     name: name
   });
 
   _.each(testFns, function buildTest(testFn) {
     suite = suite.add(testFn.name, {
-      defer: true,
-      fn: function fn(deferred) {
-        testFn(function _afterRunningTestFn(err) {
-          if (err) {
-            console.error('An error occured when attempting to benchmark this code:\n', err);
-            // Resolve the deferred either way.
-          }
-
-          deferred.resolve();
-        }); // </afterwards cb from running test fn>
-      }
-    });// <suite.add>
-  });// </each testFn>
+      fn: testFn
+    });
+  });
 
   suite.on('cycle', function(event) {
     console.log(' •', String(event.target));
   })
   .on('complete', function() {
-    // Time is measured in microseconds so 10000 =
+    // Time is measured in microseconds so 1000 = 1ms
     var fastestMean = _.first(this.filter('fastest')).stats.mean * 1000;
     var slowestMean = _.first(this.filter('slowest')).stats.mean * 1000;
 
@@ -37,8 +27,6 @@ module.exports = function runBenchmarks(name, testFns, done) {
 
     console.log('Fastest is ' + this.filter('fastest').map('name') + ' with an average of: ' + mean.fastest + 'ms');
     console.log('Slowest is ' + this.filter('slowest').map('name') + ' with an average of: ' + mean.slowest + 'ms');
-
-    return done(undefined, this);
   })
   .run();
 };
