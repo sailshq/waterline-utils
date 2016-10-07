@@ -10,19 +10,18 @@ describe('Benchmark :: Tokenizer', function() {
   this.slow(240000);
   this.timeout(240000);
 
-  it('should be performant enough', function(done) {
+  it('should be performant enough', function() {
     runBenchmarks('Tokenizer.execSync()', [
-      function buildSelectTokenSet(next) {
+      function buildSelectTokenSet() {
         Tokenizer({
           expression: {
             select: '*',
             from: 'books'
           }
         }).execSync();
-        return next();
       },
 
-      function buildInsertTokenSet(next) {
+      function buildInsertTokenSet() {
         Tokenizer({
           expression: {
             insert: {
@@ -31,10 +30,9 @@ describe('Benchmark :: Tokenizer', function() {
             into: 'books'
           }
         }).execSync();
-        return next();
       },
 
-      function buildUpdateTokenSet(next) {
+      function buildUpdateTokenSet() {
         Tokenizer({
           expression: {
             update: {
@@ -46,10 +44,9 @@ describe('Benchmark :: Tokenizer', function() {
             using: 'books'
           }
         }).execSync();
-        return next();
       },
 
-      function buildDeleteTokenSet(next) {
+      function buildDeleteTokenSet() {
         Tokenizer({
           expression: {
             del: true,
@@ -59,8 +56,7 @@ describe('Benchmark :: Tokenizer', function() {
             }
           }
         }).execSync();
-        return next();
       }
-    ], done);
+    ]);
   });
 });
