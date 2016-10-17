@@ -4,39 +4,32 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('Aggregations', function() {
-    it('should generate a valid group when when GROUP BY is used', function(done) {
+    it('should generate a valid group when when GROUP BY is used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'users',
         groupBy: ['count']
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'GROUPBY' },
-            { type: 'VALUE', value: ['count'] }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'GROUPBY' },
+          { type: 'VALUE', value: ['count'] }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when when MIN is used', function(done) {
+    it('should generate a valid group when when MIN is used', function() {
       var tokens = tokenize({
         min: [
           'active'
@@ -44,28 +37,21 @@ describe('Analyzer ::', function() {
         from: 'users'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'MIN' },
-            { type: 'VALUE', value: ['active'] }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'MIN' },
+          { type: 'VALUE', value: ['active'] }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when when MAX is used', function(done) {
+    it('should generate a valid group when when MAX is used', function() {
       var tokens = tokenize({
         max: [
           'active'
@@ -73,28 +59,21 @@ describe('Analyzer ::', function() {
         from: 'users'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'MAX' },
-            { type: 'VALUE', value: ['active'] }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'MAX' },
+          { type: 'VALUE', value: ['active'] }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when when SUM is used', function(done) {
+    it('should generate a valid group when when SUM is used', function() {
       var tokens = tokenize({
         sum: [
           'active'
@@ -102,28 +81,21 @@ describe('Analyzer ::', function() {
         from: 'users'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'SUM' },
-            { type: 'VALUE', value: ['active'] }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'SUM' },
+          { type: 'VALUE', value: ['active'] }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when when AVG is used', function(done) {
+    it('should generate a valid group when when AVG is used', function() {
       var tokens = tokenize({
         avg: [
           'active'
@@ -131,25 +103,18 @@ describe('Analyzer ::', function() {
         from: 'users'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'AVG' },
-            { type: 'VALUE', value: ['active'] }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'AVG' },
+          { type: 'VALUE', value: ['active'] }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ]
+      ]);
     });
   });
 });

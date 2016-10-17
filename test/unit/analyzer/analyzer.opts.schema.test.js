@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('OPTS', function() {
-    it('should generate a valid group when a SCHEMA is used', function(done) {
+    it('should generate a valid group when a SCHEMA is used', function() {
       var tokens = tokenize({
         select: ['title', 'author', 'year'],
         from: 'books',
@@ -13,37 +13,30 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: 'title' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: 'author' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: 'year' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'books' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'SCHEMA' },
-            { type: 'VALUE', value: 'foo' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: 'title' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: 'author' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: 'year' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'books' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'SCHEMA' },
+          { type: 'VALUE', value: 'foo' }
+        ]
+      ]);
     });
   });
 });

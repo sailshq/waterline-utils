@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('UPDATE statements', function() {
-    it('should generate a valid group for UPDATE statements', function(done) {
+    it('should generate a valid group for UPDATE statements', function() {
       var tokens = tokenize({
         update: {
           status: 'archived'
@@ -15,32 +15,25 @@ describe('Analyzer ::', function() {
         using: 'books'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'UPDATE' },
-            { type: 'KEY', value: 'status' },
-            { type: 'VALUE', value: 'archived' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'KEY', value: 'publishedDate' },
-            { type: 'OPERATOR', value: '>' },
-            { type: 'VALUE', value: 2000 }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'USING' },
-            { type: 'VALUE', value: 'books' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'UPDATE' },
+          { type: 'KEY', value: 'status' },
+          { type: 'VALUE', value: 'archived' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'KEY', value: 'publishedDate' },
+          { type: 'OPERATOR', value: '>' },
+          { type: 'VALUE', value: 2000 }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'USING' },
+          { type: 'VALUE', value: 'books' }
+        ]
+      ]);
     });
   });
 });

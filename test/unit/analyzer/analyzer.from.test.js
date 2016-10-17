@@ -4,31 +4,24 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('FROM statements', function() {
-    it('should generate a valid group when FROM is used', function(done) {
+    it('should generate a valid group when FROM is used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'books'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'books' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'books' }
+        ]
+      ]);
     });
   });
 });
