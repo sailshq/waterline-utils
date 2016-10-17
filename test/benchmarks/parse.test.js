@@ -5,63 +5,58 @@ var Analyzer = require('../../index').analyzer;
 //  ╔╗ ╔═╗╔╗╔╔═╗╦ ╦╔╦╗╔═╗╦═╗╦╔═╔═╗
 //  ╠╩╗║╣ ║║║║  ╠═╣║║║╠═╣╠╦╝╠╩╗╚═╗
 //  ╚═╝╚═╝╝╚╝╚═╝╩ ╩╩ ╩╩ ╩╩╚═╩ ╩╚═╝
-describe('Benchmark :: Analyzer', function() {
+describe('Benchmark :: Parse', function() {
   // Set "timeout" and "slow" thresholds incredibly high
   // to avoid running into issues.
   this.slow(240000);
   this.timeout(240000);
 
-  var tokens = {};
-
-  // Tokenize all the test inputs before running benchmarks
-  before(function() {
-    tokens.select = Tokenizer({
-      select: '*',
-      from: 'books'
-    });
-
-    tokens.insert = Tokenizer({
-      insert: {
-        title: 'Slaughterhouse Five'
-      },
-      into: 'books'
-    });
-
-    tokens.update = Tokenizer({
-      update: {
-        status: 'archived'
-      },
-      where: {
-        publishedDate: { '>': 2000 }
-      },
-      using: 'books'
-    });
-
-    tokens.delete = Tokenizer({
-      del: true,
-      from: 'accounts',
-      where: {
-        activated: false
-      }
-    });
-  });
-
   it('should be performant enough', function() {
     runBenchmarks('Analyzer.execSync()', [
       function analyzeSelectSet() {
-        Analyzer(tokens.select);
+        var tokens = Tokenizer({
+          select: '*',
+          from: 'books'
+        });
+
+        Analyzer(tokens);
       },
 
       function analyzeInsertSet() {
-        Analyzer(tokens.insert);
+        var tokens = Tokenizer({
+          insert: {
+            title: 'Slaughterhouse Five'
+          },
+          into: 'books'
+        });
+
+        Analyzer(tokens);
       },
 
       function analyzeUpdateSet() {
-        Analyzer(tokens.update);
+        var tokens = Tokenizer({
+          update: {
+            status: 'archived'
+          },
+          where: {
+            publishedDate: { '>': 2000 }
+          },
+          using: 'books'
+        });
+
+        Analyzer(tokens);
       },
 
       function analyzeDeleteSet() {
-        Analyzer(tokens.delete);
+        var tokens = Tokenizer({
+          del: true,
+          from: 'accounts',
+          where: {
+            activated: false
+          }
+        });
+
+        Analyzer(tokens);
       }
     ]);
   });
