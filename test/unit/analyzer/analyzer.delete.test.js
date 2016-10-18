@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('DELETE statements', function() {
-    it('should generate a valid group for DELETE statements', function(done) {
+    it('should generate a valid group for DELETE statements', function() {
       var tokens = tokenize({
         del: true,
         from: 'accounts',
@@ -13,29 +13,22 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'DELETE' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'accounts' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'KEY', value: 'activated' },
-            { type: 'VALUE', value: false }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'DELETE' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'accounts' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'KEY', value: 'activated' },
+          { type: 'VALUE', value: false }
+        ]
+      ]);
     });
   });
 });

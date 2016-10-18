@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('INSERT statements', function() {
-    it('should generate a valid group for INSERT statements', function(done) {
+    it('should generate a valid group for INSERT statements', function() {
       var tokens = tokenize({
         insert: {
           title: 'Slaughterhouse Five'
@@ -12,26 +12,19 @@ describe('Analyzer ::', function() {
         into: 'books'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'INSERT' },
-            { type: 'KEY', value: 'title' },
-            { type: 'VALUE', value: 'Slaughterhouse Five' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'INTO' },
-            { type: 'VALUE', value: 'books' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'INSERT' },
+          { type: 'KEY', value: 'title' },
+          { type: 'VALUE', value: 'Slaughterhouse Five' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'INTO' },
+          { type: 'VALUE', value: 'books' }
+        ]
+      ]);
     });
   });
 });

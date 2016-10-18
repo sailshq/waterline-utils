@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('WHERE NOT statements', function() {
-    it('should generate a valid group', function(done) {
+    it('should generate a valid group', function() {
       var tokens = tokenize({
         select: ['id'],
         from: 'users',
@@ -16,37 +16,30 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: 'id' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'CONDITION', value: 'NOT' },
-            { type: 'KEY', value: 'firstName' },
-            { type: 'VALUE', value: 'Test' },
-            { type: 'CONDITION', value: 'NOT' },
-            { type: 'KEY', value: 'lastName' },
-            { type: 'VALUE', value: 'User' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: 'id' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'NOT' },
+          { type: 'KEY', value: 'firstName' },
+          { type: 'VALUE', value: 'Test' },
+          { type: 'CONDITION', value: 'NOT' },
+          { type: 'KEY', value: 'lastName' },
+          { type: 'VALUE', value: 'User' }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when nested NOT statements are used', function(done) {
+    it('should generate a valid group when nested NOT statements are used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'users',
@@ -77,50 +70,42 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
           [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
+            { type: 'CONDITION', value: 'NOT' },
             [
-              { type: 'CONDITION', value: 'NOT' },
-              [
-                { type: 'KEY', value: 'id' },
-                { type: 'VALUE', value: 1 }
-              ],
-              [
-                { type: 'CONDITION', value: 'NOT' },
-                { type: 'KEY', value: 'id' },
-                { type: 'OPERATOR', value: '>' },
-                { type: 'VALUE', value: 10 }
-              ]
+              { type: 'KEY', value: 'id' },
+              { type: 'VALUE', value: 1 }
             ],
             [
               { type: 'CONDITION', value: 'NOT' },
-              { type: 'KEY', value: 'name' },
-              { type: 'VALUE', value: 'Tester' }
+              { type: 'KEY', value: 'id' },
+              { type: 'OPERATOR', value: '>' },
+              { type: 'VALUE', value: 10 }
             ]
+          ],
+          [
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'name' },
+            { type: 'VALUE', value: 'Tester' }
           ]
-        ]);
-
-
-        return done();
-      });
+        ]
+      ]);
     });
 
-    it('should generate a valid group when conditionals are used', function(done) {
+    it('should generate a valid group when conditionals are used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'users',
@@ -131,35 +116,28 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'CONDITION', value: 'NOT' },
-            { type: 'KEY', value: 'votes' },
-            { type: 'OPERATOR', value: '>' },
-            { type: 'VALUE', value: 100 }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'NOT' },
+          { type: 'KEY', value: 'votes' },
+          { type: 'OPERATOR', value: '>' },
+          { type: 'VALUE', value: 100 }
+        ]
+      ]);
     });
 
-    it('should generate a valid group when multiple conditionals are used', function(done) {
+    it('should generate a valid group when multiple conditionals are used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'users',
@@ -176,40 +154,33 @@ describe('Analyzer ::', function() {
         }
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'WHERE' },
           [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
+            { type: 'KEY', value: 'name' },
+            { type: 'VALUE', value: 'John' }
           ],
           [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'WHERE' },
-            [
-              { type: 'KEY', value: 'name' },
-              { type: 'VALUE', value: 'John' }
-            ],
-            [
-              { type: 'KEY', value: 'votes' },
-              { type: 'OPERATOR', value: '>' },
-              { type: 'VALUE', value: 100 },
-              { type: 'CONDITION', value: 'NOT' },
-              { type: 'KEY', value: 'title' },
-              { type: 'VALUE', value: 'Admin' }
-            ]
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 100 },
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'title' },
+            { type: 'VALUE', value: 'Admin' }
           ]
-        ]);
-
-        return done();
-      });
+        ]
+      ]);
     });
   });
 });

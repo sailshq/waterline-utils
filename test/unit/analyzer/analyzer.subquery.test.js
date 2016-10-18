@@ -5,7 +5,7 @@ var assert = require('assert');
 describe('Analyzer ::', function() {
   describe('Subqueries', function() {
     describe('used as a predicate', function() {
-      it('should generate a valid group for an IN subquery', function(done) {
+      it('should generate a valid group for an IN subquery', function() {
         var tokens = tokenize({
           select: '*',
           where: {
@@ -25,55 +25,48 @@ describe('Analyzer ::', function() {
           from: 'accounts'
         });
 
-        Analyzer({
-          tokens: tokens
-        })
-        .exec(function(err, result) {
-          assert(!err);
+        var result = Analyzer(tokens);
 
-          assert.deepEqual(result, [
+        assert.deepEqual(result, [
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: '*' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'WHERE' },
+            { type: 'KEY', value: 'id' },
+            { type: 'CONDITION', value: 'IN' },
+            { type: 'SUBQUERY', value: null },
             [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: '*' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'WHERE' },
-              { type: 'KEY', value: 'id' },
-              { type: 'CONDITION', value: 'IN' },
-              { type: 'SUBQUERY', value: null },
               [
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: 'id' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
                 [
-                  { type: 'IDENTIFIER', value: 'SELECT' },
-                  { type: 'VALUE', value: 'id' }
+                  { type: 'KEY', value: 'status' },
+                  { type: 'VALUE', value: 'active' }
                 ],
                 [
-                  { type: 'IDENTIFIER', value: 'FROM' },
-                  { type: 'VALUE', value: 'users' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'WHERE' },
-                  [
-                    { type: 'KEY', value: 'status' },
-                    { type: 'VALUE', value: 'active' }
-                  ],
-                  [
-                    { type: 'KEY', value: 'name' },
-                    { type: 'VALUE', value: 'John' }
-                  ]
+                  { type: 'KEY', value: 'name' },
+                  { type: 'VALUE', value: 'John' }
                 ]
               ]
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'FROM' },
-              { type: 'VALUE', value: 'accounts' }
             ]
-          ]);
-
-          return done();
-        });
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'FROM' },
+            { type: 'VALUE', value: 'accounts' }
+          ]
+        ]);
       });
 
-      it('should generate a valid group for a NOT IN subquery', function(done) {
+      it('should generate a valid group for a NOT IN subquery', function() {
         var tokens = tokenize({
           select: '*',
           from: 'accounts',
@@ -95,58 +88,51 @@ describe('Analyzer ::', function() {
           }
         });
 
-        Analyzer({
-          tokens: tokens
-        })
-        .exec(function(err, result) {
-          assert(!err);
+        var result = Analyzer(tokens);
 
-          assert.deepEqual(result, [
+        assert.deepEqual(result, [
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: '*' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'FROM' },
+            { type: 'VALUE', value: 'accounts' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'WHERE' },
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'id' },
+            { type: 'CONDITION', value: 'IN' },
+            { type: 'SUBQUERY', value: null },
             [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: '*' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'FROM' },
-              { type: 'VALUE', value: 'accounts' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'WHERE' },
-              { type: 'CONDITION', value: 'NOT' },
-              { type: 'KEY', value: 'id' },
-              { type: 'CONDITION', value: 'IN' },
-              { type: 'SUBQUERY', value: null },
               [
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: 'id' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
                 [
-                  { type: 'IDENTIFIER', value: 'SELECT' },
-                  { type: 'VALUE', value: 'id' }
+                  { type: 'KEY', value: 'status' },
+                  { type: 'VALUE', value: 'active' }
                 ],
                 [
-                  { type: 'IDENTIFIER', value: 'FROM' },
-                  { type: 'VALUE', value: 'users' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'WHERE' },
-                  [
-                    { type: 'KEY', value: 'status' },
-                    { type: 'VALUE', value: 'active' }
-                  ],
-                  [
-                    { type: 'KEY', value: 'name' },
-                    { type: 'VALUE', value: 'John' }
-                  ]
+                  { type: 'KEY', value: 'name' },
+                  { type: 'VALUE', value: 'John' }
                 ]
               ]
             ]
-          ]);
-
-          return done();
-        });
+          ]
+        ]);
       });
     });
 
     describe('used as scalar values', function() {
-      it('should generate a valid group when used inside a SELECT', function(done) {
+      it('should generate a valid group when used inside a SELECT', function() {
         var tokens = tokenize({
           select: ['name', {
             select: ['username'],
@@ -162,61 +148,54 @@ describe('Analyzer ::', function() {
           from: 'accounts'
         });
 
-        Analyzer({
-          tokens: tokens
-        })
-        .exec(function(err, result) {
-          assert(!err);
+        var result = Analyzer(tokens);
 
-          assert.deepEqual(result, [
+        assert.deepEqual(result, [
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'name' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'SUBQUERY', value: null },
             [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'name' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'SUBQUERY', value: null },
               [
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: 'username' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
                 [
-                  { type: 'IDENTIFIER', value: 'SELECT' },
-                  { type: 'VALUE', value: 'username' }
+                  { type: 'KEY', value: 'status' },
+                  { type: 'VALUE', value: 'active' }
                 ],
                 [
-                  { type: 'IDENTIFIER', value: 'FROM' },
-                  { type: 'VALUE', value: 'users' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'WHERE' },
-                  [
-                    { type: 'KEY', value: 'status' },
-                    { type: 'VALUE', value: 'active' }
-                  ],
-                  [
-                    { type: 'KEY', value: 'name' },
-                    { type: 'VALUE', value: 'John' }
-                  ]
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'AS' },
-                  { type: 'VALUE', value: 'username' }
+                  { type: 'KEY', value: 'name' },
+                  { type: 'VALUE', value: 'John' }
                 ]
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'AS' },
+                { type: 'VALUE', value: 'username' }
               ]
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'age' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'FROM' },
-              { type: 'VALUE', value: 'accounts' }
             ]
-          ]);
-
-          return done();
-        });
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'age' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'FROM' },
+            { type: 'VALUE', value: 'accounts' }
+          ]
+        ]);
       });
 
-      it('should generate a valid group when used as a value in a WHERE', function(done) {
+      it('should generate a valid group when used as a value in a WHERE', function() {
         var tokens = tokenize({
           select: ['name', 'age'],
           from: 'accounts',
@@ -231,54 +210,47 @@ describe('Analyzer ::', function() {
           }
         });
 
-        Analyzer({
-          tokens: tokens
-        })
-        .exec(function(err, result) {
-          assert(!err);
+        var result = Analyzer(tokens);
 
-          assert.deepEqual(result, [
+        assert.deepEqual(result, [
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'name' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'age' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'FROM' },
+            { type: 'VALUE', value: 'accounts' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'WHERE' },
+            { type: 'KEY', value: 'username' },
+            { type: 'SUBQUERY', value: null },
             [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'name' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'age' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'FROM' },
-              { type: 'VALUE', value: 'accounts' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'WHERE' },
-              { type: 'KEY', value: 'username' },
-              { type: 'SUBQUERY', value: null },
               [
-                [
-                  { type: 'IDENTIFIER', value: 'SELECT' },
-                  { type: 'VALUE', value: 'username' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'FROM' },
-                  { type: 'VALUE', value: 'users' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'WHERE' },
-                  { type: 'KEY', value: 'color' },
-                  { type: 'VALUE', value: 'accounts.color' }
-                ]
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: 'username' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
+                { type: 'KEY', value: 'color' },
+                { type: 'VALUE', value: 'accounts.color' }
               ]
             ]
-          ]);
-
-          return done();
-        });
+          ]
+        ]);
       });
     });
 
     describe('used as table sub query', function() {
-      it('should generate a valid group when used as a value in a FROM with an AS alias', function(done) {
+      it('should generate a valid group when used as a value in a FROM with an AS alias', function() {
         var tokens = tokenize({
           select: ['name', 'age'],
           from: {
@@ -291,48 +263,41 @@ describe('Analyzer ::', function() {
           }
         });
 
-        Analyzer({
-          tokens: tokens
-        })
-        .exec(function(err, result) {
-          assert(!err);
+        var result = Analyzer(tokens);
 
-          assert.deepEqual(result, [
+        assert.deepEqual(result, [
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'name' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'SELECT' },
+            { type: 'VALUE', value: 'age' }
+          ],
+          [
+            { type: 'IDENTIFIER', value: 'FROM' },
+            { type: 'SUBQUERY', value: null },
             [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'name' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'SELECT' },
-              { type: 'VALUE', value: 'age' }
-            ],
-            [
-              { type: 'IDENTIFIER', value: 'FROM' },
-              { type: 'SUBQUERY', value: null },
               [
-                [
-                  { type: 'IDENTIFIER', value: 'SELECT' },
-                  { type: 'VALUE', value: 'age' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'FROM' },
-                  { type: 'VALUE', value: 'users' }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'WHERE' },
-                  { type: 'KEY', value: 'age' },
-                  { type: 'VALUE', value: 21 }
-                ],
-                [
-                  { type: 'IDENTIFIER', value: 'AS' },
-                  { type: 'VALUE', value: 'userage' }
-                ]
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: 'age' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
+                { type: 'KEY', value: 'age' },
+                { type: 'VALUE', value: 21 }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'AS' },
+                { type: 'VALUE', value: 'userage' }
               ]
             ]
-          ]);
-
-          return done();
-        });
+          ]
+        ]);
       });
     });
   });

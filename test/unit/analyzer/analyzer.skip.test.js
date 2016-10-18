@@ -4,36 +4,29 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('SKIP statements', function() {
-    it('should generate a valid group when SKIP is used', function(done) {
+    it('should generate a valid group when SKIP is used', function() {
       var tokens = tokenize({
         select: '*',
         from: 'users',
         skip: 10
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result,  [
-          [
-            { type: 'IDENTIFIER', value: 'SELECT' },
-            { type: 'VALUE', value: '*' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'FROM' },
-            { type: 'VALUE', value: 'users' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'SKIP' },
-            { type: 'VALUE', value: 10 }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result,  [
+        [
+          { type: 'IDENTIFIER', value: 'SELECT' },
+          { type: 'VALUE', value: '*' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'FROM' },
+          { type: 'VALUE', value: 'users' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'SKIP' },
+          { type: 'VALUE', value: 10 }
+        ]
+      ]);
     });
   });
 });

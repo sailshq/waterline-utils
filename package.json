@@ -12,30 +12,18 @@
   "keywords": [
     "waterline query parser",
     "waterline",
-    "sails",
-    "machines",
-    "machinepack"
+    "sails"
   ],
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "3.10.1",
-    "machine": "12.4.0"
+    "lodash": "3.10.1"
   },
   "devDependencies": {
     "benchmark": "2.1.1",
     "eslint": "3.5.0",
     "espree": "3.3.0",
     "mocha": "3.0.2"
-  },
-  "machinepack": {
-    "friendlyName": "Waterline Query Parser",
-    "machineDir": "machines/",
-    "machines": [
-      "tokenizer",
-      "analyzer"
-    ],
-    "testsUrl": "https://travis-ci.org/treelinehq/waterline-query-parser"
   },
   "repository": {
     "type": "git",

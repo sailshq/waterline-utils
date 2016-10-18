@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('Analyzer ::', function() {
   describe('RETURNING statements', function() {
-    it('should generate a valid group for RETURNING statements', function(done) {
+    it('should generate a valid group for RETURNING statements', function() {
       var tokens = tokenize({
         insert: {
           title: 'Slaughterhouse Five'
@@ -13,33 +13,26 @@ describe('Analyzer ::', function() {
         returning: 'author'
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'INSERT' },
-            { type: 'KEY', value: 'title' },
-            { type: 'VALUE', value: 'Slaughterhouse Five' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'INTO' },
-            { type: 'VALUE', value: 'books' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'RETURNING' },
-            { type: 'VALUE', value: 'author' }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'INSERT' },
+          { type: 'KEY', value: 'title' },
+          { type: 'VALUE', value: 'Slaughterhouse Five' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'INTO' },
+          { type: 'VALUE', value: 'books' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'RETURNING' },
+          { type: 'VALUE', value: 'author' }
+        ]
+      ]);
     });
 
-    it('should generate a valid group for RETURNING statements when arrays are used', function(done) {
+    it('should generate a valid group for RETURNING statements when arrays are used', function() {
       var tokens = tokenize({
         insert: {
           title: 'Slaughterhouse Five'
@@ -48,30 +41,23 @@ describe('Analyzer ::', function() {
         returning: ['author', 'title']
       });
 
-      Analyzer({
-        tokens: tokens
-      })
-      .exec(function(err, result) {
-        assert(!err);
+      var result = Analyzer(tokens);
 
-        assert.deepEqual(result, [
-          [
-            { type: 'IDENTIFIER', value: 'INSERT' },
-            { type: 'KEY', value: 'title' },
-            { type: 'VALUE', value: 'Slaughterhouse Five' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'INTO' },
-            { type: 'VALUE', value: 'books' }
-          ],
-          [
-            { type: 'IDENTIFIER', value: 'RETURNING' },
-            { type: 'VALUE', value: ['author', 'title'] }
-          ]
-        ]);
-
-        return done();
-      });
+      assert.deepEqual(result, [
+        [
+          { type: 'IDENTIFIER', value: 'INSERT' },
+          { type: 'KEY', value: 'title' },
+          { type: 'VALUE', value: 'Slaughterhouse Five' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'INTO' },
+          { type: 'VALUE', value: 'books' }
+        ],
+        [
+          { type: 'IDENTIFIER', value: 'RETURNING' },
+          { type: 'VALUE', value: ['author', 'title'] }
+        ]
+      ]);
     });
   });
 });

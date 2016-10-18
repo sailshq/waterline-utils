@@ -6,9 +6,5 @@
 var Tokenizer = require('../../index').tokenizer;
 
 module.exports = function(expression) {
-  var tokens = Tokenizer({
-    expression: expression
-  }).execSync();
-
-  return tokens;
+  return Tokenizer(expression);
 };

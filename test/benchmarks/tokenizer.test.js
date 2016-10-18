@@ -14,48 +14,40 @@ describe('Benchmark :: Tokenizer', function() {
     runBenchmarks('Tokenizer.execSync()', [
       function buildSelectTokenSet() {
         Tokenizer({
-          expression: {
-            select: '*',
-            from: 'books'
-          }
-        }).execSync();
+          select: '*',
+          from: 'books'
+        });
       },
 
       function buildInsertTokenSet() {
         Tokenizer({
-          expression: {
-            insert: {
-              title: 'Slaughterhouse Five'
-            },
-            into: 'books'
-          }
-        }).execSync();
+          insert: {
+            title: 'Slaughterhouse Five'
+          },
+          into: 'books'
+        });
       },
 
       function buildUpdateTokenSet() {
         Tokenizer({
-          expression: {
-            update: {
-              status: 'archived'
-            },
-            where: {
-              publishedDate: { '>': 2000 }
-            },
-            using: 'books'
-          }
-        }).execSync();
+          update: {
+            status: 'archived'
+          },
+          where: {
+            publishedDate: { '>': 2000 }
+          },
+          using: 'books'
+        });
       },
 
       function buildDeleteTokenSet() {
         Tokenizer({
-          expression: {
-            del: true,
-            from: 'accounts',
-            where: {
-              activated: false
-            }
+          del: true,
+          from: 'accounts',
+          where: {
+            activated: false
           }
-        }).execSync();
+        });
       }
     ]);
   });
