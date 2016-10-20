@@ -46,7 +46,7 @@ describe('Converter :: ', function() {
             }
           },
           query: {
-            select: ['pet.id', 'pet.name', 'pet.breed'],
+            select: ['pet.id as pet__id', 'pet.name as pet__name', 'pet.breed as pet__breed'],
             from: 'user',
             orderBy: [
               {
@@ -118,7 +118,7 @@ describe('Converter :: ', function() {
             }
           },
           query: {
-            select: ['pet.id', 'pet.name', 'pet.breed', 'pet.user_id'],
+            select: ['pet.id as pet__id', 'pet.name as pet__name', 'pet.breed as pet__breed', 'pet.user_id as pet__user_id'],
             from: 'user',
             orderBy: [
               {
@@ -203,7 +203,7 @@ describe('Converter :: ', function() {
             }
           },
           query: {
-            select: ['pet.id', 'pet.name', 'pet.breed'],
+            select: ['pet.id as pet__id', 'pet.name as pet__name', 'pet.breed as pet__breed'],
             from: 'user',
             orderBy: [
               {
