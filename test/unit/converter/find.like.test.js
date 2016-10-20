@@ -16,7 +16,7 @@ describe('Converter ::', function() {
           }
         },
         query: {
-          select: ['*'],
+          select: [],
           from: 'user',
           where: {
             and: [
