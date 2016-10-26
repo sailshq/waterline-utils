@@ -1,5 +1,5 @@
 var runBenchmarks = require('../support/benchmark-runner');
-var Converter = require('../../index').converter;
+var Converter = require('../../index').query.converter;
 
 //  ╔╗ ╔═╗╔╗╔╔═╗╦ ╦╔╦╗╔═╗╦═╗╦╔═╔═╗
 //  ╠╩╗║╣ ║║║║  ╠═╣║║║╠═╣╠╦╝╠╩╗╚═╗

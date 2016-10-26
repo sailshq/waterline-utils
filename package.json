@@ -1,7 +1,7 @@
 {
-  "name": "waterline-query-parser",
+  "name": "waterline-utils",
   "version": "1.0.0",
-  "description": "Parse Waterline queries into normalized chunks",
+  "description": "Various utilities for working with Waterline queries and adapters.",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
     "fasttest": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
@@ -27,6 +27,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:treelinehq/waterline-query-parser.git"
+    "url": "git@github.com:treelinehq/waterline-utils.git"
   }
 }

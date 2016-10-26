@@ -1,5 +1,12 @@
 module.exports = {
-  tokenizer: require('./lib/tokenizer'),
-  analyzer: require('./lib/analyzer'),
-  converter: require('./lib/converter')
+  query: {
+    tokenizer: require('./lib/query/tokenizer'),
+    analyzer: require('./lib/query/analyzer'),
+    converter: require('./lib/query/converter')
+  },
+  joins: {
+    queryCache: require('./lib/joins/query-cache'),
+    detectChildrenRecords: require('./lib/joins/detect-children-records'),
+    convertJoinCriteria: require('./lib/joins/convert-join-criteria')
+  }
 };

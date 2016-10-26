@@ -1,4 +1,4 @@
-var Analyzer = require('../../../index').analyzer;
+var Analyzer = require('../../../index').query.analyzer;
 var tokenize = require('../../support/tokenize');
 var assert = require('assert');
 

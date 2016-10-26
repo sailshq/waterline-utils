@@ -3,7 +3,7 @@
  * For use with Analyzer tests.
  */
 
-var Tokenizer = require('../../index').tokenizer;
+var Tokenizer = require('../../index').query.tokenizer;
 
 module.exports = function(expression) {
   return Tokenizer(expression);

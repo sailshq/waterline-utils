@@ -1,6 +1,6 @@
 // Given a Waterline criteria, convert it to a Waterline query.
 var assert = require('assert');
-var Converter = require('../../lib/converter');
+var Converter = require('../../lib/query/converter');
 
 module.exports = function(test) {
   var criteria = test.criteria;
