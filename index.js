@@ -1,5 +1,7 @@
 module.exports = {
-  tokenizer: require('./lib/tokenizer'),
-  analyzer: require('./lib/analyzer'),
-  converter: require('./lib/converter')
+  query: {
+    tokenizer: require('./lib/query/tokenizer'),
+    analyzer: require('./lib/query/analyzer'),
+    converter: require('./lib/query/converter')
+  }
 };
