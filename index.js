@@ -6,6 +6,7 @@ module.exports = {
   },
   joins: {
     queryCache: require('./lib/joins/query-cache'),
-    detectChildrenRecords: require('./lib/joins/detect-children-records')
+    detectChildrenRecords: require('./lib/joins/detect-children-records'),
+    convertJoinCriteria: require('./lib/joins/convert-joins-criteria')
   }
 };
