@@ -1,4 +1,4 @@
-var Tokenizer = require('../../../index').tokenizer;
+var Tokenizer = require('../../../index').query.tokenizer;
 var assert = require('assert');
 
 describe('Tokenizer ::', function() {

@@ -1,6 +1,6 @@
 var runBenchmarks = require('../support/benchmark-runner');
-var Tokenizer = require('../../index').tokenizer;
-var Analyzer = require('../../index').analyzer;
+var Tokenizer = require('../../index').query.tokenizer;
+var Analyzer = require('../../index').query.analyzer;
 
 //  ╔╗ ╔═╗╔╗╔╔═╗╦ ╦╔╦╗╔═╗╦═╗╦╔═╔═╗
 //  ╠╩╗║╣ ║║║║  ╠═╣║║║╠═╣╠╦╝╠╩╗╚═╗
