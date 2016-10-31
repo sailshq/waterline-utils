@@ -6,21 +6,21 @@ describe('Analyzer ::', function() {
   describe('UNION ALL statements', function() {
     it('should generate a valid group for UNIONALL statements', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           firstName: 'Bob'
         },
         unionAll: [
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               lastName: 'Smith'
             }
           },
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               middleName: 'Allen'
@@ -85,14 +85,14 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group with joins inside UNIONALL statements', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           firstName: 'Bob'
         },
         unionAll: [
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               lastName: 'Smith'
@@ -108,7 +108,7 @@ describe('Analyzer ::', function() {
             ]
           },
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               middleName: 'Allen'

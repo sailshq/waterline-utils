@@ -41,7 +41,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when nested NOT statements are used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [
@@ -107,7 +107,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when conditionals are used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           not: {
@@ -139,7 +139,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when multiple conditionals are used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [

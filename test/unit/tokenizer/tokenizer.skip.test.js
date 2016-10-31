@@ -5,7 +5,7 @@ describe('Tokenizer ::', function() {
   describe('SKIP statements', function() {
     it('should generate a valid token array when SKIP is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         skip: 10
       });

@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('SKIP statements', function() {
     it('should generate a valid group when SKIP is used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         skip: 10
       });

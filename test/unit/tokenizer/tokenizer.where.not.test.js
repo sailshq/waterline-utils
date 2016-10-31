@@ -35,7 +35,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when nested NOT statements are used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [
@@ -101,7 +101,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when operators are used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           not: {
@@ -129,7 +129,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when multiple operators are used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [

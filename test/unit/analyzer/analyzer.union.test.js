@@ -6,21 +6,21 @@ describe('Analyzer ::', function() {
   describe('UNION statements', function() {
     it('should generate a valid group for UNION statements', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           firstName: 'Bob'
         },
         union: [
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               lastName: 'Smith'
             }
           },
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               middleName: 'Allen'

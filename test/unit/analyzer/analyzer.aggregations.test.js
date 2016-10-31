@@ -6,9 +6,9 @@ describe('Analyzer ::', function() {
   describe('Aggregations', function() {
     it('should generate a valid group when when GROUP BY is used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
-        groupBy: ['count']
+        groupBy: 'count'
       });
 
       var result = Analyzer(tokens);
@@ -24,16 +24,14 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'GROUPBY' },
-          { type: 'VALUE', value: ['count'] }
+          { type: 'VALUE', value: 'count' }
         ]
       ]);
     });
 
     it('should generate a valid group when when MIN is used', function() {
       var tokens = tokenize({
-        min: [
-          'active'
-        ],
+        min: 'active',
         from: 'users'
       });
 
@@ -42,7 +40,7 @@ describe('Analyzer ::', function() {
       assert.deepEqual(result,  [
         [
           { type: 'IDENTIFIER', value: 'MIN' },
-          { type: 'VALUE', value: ['active'] }
+          { type: 'VALUE', value: 'active' }
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -53,9 +51,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when when MAX is used', function() {
       var tokens = tokenize({
-        max: [
-          'active'
-        ],
+        max: 'active',
         from: 'users'
       });
 
@@ -64,7 +60,7 @@ describe('Analyzer ::', function() {
       assert.deepEqual(result,  [
         [
           { type: 'IDENTIFIER', value: 'MAX' },
-          { type: 'VALUE', value: ['active'] }
+          { type: 'VALUE', value: 'active' }
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -75,9 +71,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when when SUM is used', function() {
       var tokens = tokenize({
-        sum: [
-          'active'
-        ],
+        sum: 'active',
         from: 'users'
       });
 
@@ -86,7 +80,7 @@ describe('Analyzer ::', function() {
       assert.deepEqual(result,  [
         [
           { type: 'IDENTIFIER', value: 'SUM' },
-          { type: 'VALUE', value: ['active'] }
+          { type: 'VALUE', value: 'active' }
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -97,9 +91,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when when AVG is used', function() {
       var tokens = tokenize({
-        avg: [
-          'active'
-        ],
+        avg: 'active',
         from: 'users'
       });
 
@@ -108,7 +100,7 @@ describe('Analyzer ::', function() {
       assert.deepEqual(result,  [
         [
           { type: 'IDENTIFIER', value: 'AVG' },
-          { type: 'VALUE', value: ['active'] }
+          { type: 'VALUE', value: 'active' }
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },

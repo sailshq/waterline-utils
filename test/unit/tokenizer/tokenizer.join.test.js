@@ -144,7 +144,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when a grouped OR JOIN operation is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         join: [
           {
@@ -199,7 +199,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when a grouped AND JOIN operation is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         join: [
           {

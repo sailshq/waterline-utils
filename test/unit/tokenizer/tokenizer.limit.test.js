@@ -5,7 +5,7 @@ describe('Tokenizer ::', function() {
   describe('LIMIT statements', function() {
     it('should generate a valid token array when LIMIT is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         limit: 10
       });

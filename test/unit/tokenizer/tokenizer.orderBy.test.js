@@ -5,9 +5,13 @@ describe('Tokenizer ::', function() {
   describe('ORDER BY statements', function() {
     it('should generate a valid token array when ORDER BY is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
-        orderBy: [{ name: 'desc' }]
+        orderBy: [
+          {
+            name: 'desc'
+          }
+        ]
       });
 
       assert.deepEqual(result, [
