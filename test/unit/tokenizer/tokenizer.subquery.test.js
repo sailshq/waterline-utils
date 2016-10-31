@@ -6,7 +6,7 @@ describe('Tokenizer ::', function() {
     describe('used as a predicate', function() {
       it('should generate a valid token array for an IN subquery', function() {
         var result = Tokenizer({
-          select: '*',
+          select: ['*'],
           from: 'accounts',
           where: {
             id: {
@@ -61,7 +61,7 @@ describe('Tokenizer ::', function() {
 
       it('should generate a valid token array for a NOT IN subquery', function() {
         var result = Tokenizer({
-          select: '*',
+          select: ['*'],
           from: 'accounts',
           where: {
             not: {

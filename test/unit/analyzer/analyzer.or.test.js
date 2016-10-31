@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('Grouping statements with OR', function() {
     it('should generate a valid group', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         where: {
           or: [
             {
@@ -48,7 +48,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when using nested OR conditions', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         where: {
           or: [
             {

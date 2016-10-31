@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('SELECT statements', function() {
     it('should generate a valid group for select "*"', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'books'
       });
 

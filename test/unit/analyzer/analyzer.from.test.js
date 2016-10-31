@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('FROM statements', function() {
     it('should generate a valid group when FROM is used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'books'
       });
 

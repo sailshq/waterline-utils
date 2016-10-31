@@ -12,7 +12,7 @@ describe('Converter :: ', function() {
               firstName: 'Test',
               lastName: 'User'
             },
-            min: ['age']
+            min: 'age'
           }
         },
         query: {

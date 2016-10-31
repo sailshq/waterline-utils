@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('LIMIT statements', function() {
     it('should generate a valid group when LIMIT is used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         limit: 10
       });

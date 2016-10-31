@@ -172,7 +172,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when grouped JOINs are used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         join: [
           {
@@ -232,7 +232,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when multiple grouped JOINs are used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         join: [
           {

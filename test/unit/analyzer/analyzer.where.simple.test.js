@@ -37,7 +37,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when used with operators', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100 }
         },
@@ -66,7 +66,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when used with multiple operators', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100, '<': 200 }
         },
@@ -98,7 +98,7 @@ describe('Analyzer ::', function() {
 
     it('should generate a valid group when used with multiple columns and operators', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100 },
           age: { '<': 50 }

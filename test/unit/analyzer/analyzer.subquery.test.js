@@ -7,7 +7,7 @@ describe('Analyzer ::', function() {
     describe('used as a predicate', function() {
       it('should generate a valid group for an IN subquery', function() {
         var tokens = tokenize({
-          select: '*',
+          select: ['*'],
           where: {
             id: {
               in: {
@@ -68,7 +68,7 @@ describe('Analyzer ::', function() {
 
       it('should generate a valid group for a NOT IN subquery', function() {
         var tokens = tokenize({
-          select: '*',
+          select: ['*'],
           from: 'accounts',
           where: {
             not: {

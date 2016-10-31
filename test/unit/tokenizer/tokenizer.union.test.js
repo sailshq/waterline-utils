@@ -5,21 +5,21 @@ describe('Tokenizer ::', function() {
   describe('Union ::', function() {
     it('should generate a valid token array for a UNION array', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           firstName: 'Bob'
         },
         union: [
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               lastName: 'Smith'
             }
           },
           {
-            select: '*',
+            select: ['*'],
             from: 'users',
             where: {
               middleName: 'Allen'

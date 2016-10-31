@@ -5,7 +5,7 @@ describe('Tokenizer ::', function() {
   describe('SELECT statements', function() {
     it('should generate a valid token array when "*" is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'books'
       });
 

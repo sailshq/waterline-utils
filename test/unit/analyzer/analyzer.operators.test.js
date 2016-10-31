@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('Various Operators', function() {
     it('should generate a valid group for LIKE operators', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [

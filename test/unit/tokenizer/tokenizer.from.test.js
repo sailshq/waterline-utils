@@ -5,7 +5,7 @@ describe('Tokenizer ::', function() {
   describe('FROM statements', function() {
     it('should generate a valid token array when FROM is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'books'
       });
 

@@ -31,7 +31,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when used with operators', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100 }
         },
@@ -56,7 +56,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when used with multiple operators', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100, '<': 200 }
         },
@@ -85,7 +85,7 @@ describe('Tokenizer ::', function() {
 
     it('should generate a valid token array when used with multiple columns and operators', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         where: {
           votes: { '>': 100 },
           age: { '<': 50 }

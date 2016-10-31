@@ -5,7 +5,7 @@ describe('Tokenizer ::', function() {
   describe('Various Operators', function() {
     it('should generate a valid token array when LIKE is used', function() {
       var result = Tokenizer({
-        select: '*',
+        select: ['*'],
         from: 'users',
         where: {
           or: [

@@ -6,7 +6,7 @@ describe('Analyzer ::', function() {
   describe('ORDER BY statements', function() {
     it('should generate a valid group when ORDER BY is used', function() {
       var tokens = tokenize({
-        select: '*',
+        select: ['*'],
         from: 'users',
         orderBy: [{ name: 'desc' }, { age: 'asc' }]
       });
