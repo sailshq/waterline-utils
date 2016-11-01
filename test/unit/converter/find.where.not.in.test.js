@@ -25,10 +25,8 @@ describe('Converter :: ', function() {
                 firstName: 'Test'
               },
               {
-                not: {
-                  age: {
-                    in: [40, 20, 10]
-                  }
+                age: {
+                  nin: [40, 20, 10]
                 }
               }
             ]
@@ -60,10 +58,8 @@ describe('Converter :: ', function() {
                 firstName: 'Test'
               },
               {
-                not: {
-                  age: {
-                    in: [40, 20, 10]
-                  }
+                age: {
+                  nin: [40, 20, 10]
                 }
               }
             ]

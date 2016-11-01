@@ -10,9 +10,13 @@ describe('Tokenizer ::', function() {
         where: {
           and: [
             {
-              not: {
-                firstName: 'Test',
-                lastName: 'User'
+              firstName: {
+                not: 'Test'
+              }
+            },
+            {
+              lastName: {
+                not: 'User'
               }
             }
           ]
@@ -29,13 +33,17 @@ describe('Tokenizer ::', function() {
         { type: 'IDENTIFIER', value: 'WHERE' },
         { type: 'CONDITION', value: 'AND' },
         { type: 'GROUP', value: 0 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'firstName' },
-        { type: 'VALUE', value: 'Test' },
         { type: 'CONDITION', value: 'NOT' },
-        { type: 'KEY', value: 'lastName' },
-        { type: 'VALUE', value: 'User' },
+        { type: 'VALUE', value: 'Test' },
+        { type: 'ENDCONDITION', value: 'NOT' },
         { type: 'ENDGROUP', value: 0 },
+        { type: 'GROUP', value: 1 },
+        { type: 'KEY', value: 'lastName' },
+        { type: 'CONDITION', value: 'NOT' },
+        { type: 'VALUE', value: 'User' },
+        { type: 'ENDCONDITION', value: 'NOT' },
+        { type: 'ENDGROUP', value: 1 },
         { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
@@ -48,24 +56,22 @@ describe('Tokenizer ::', function() {
         where: {
           or: [
             {
-              not: {
-                or: [
-                  {
-                    id: 1
-                  },
-                  {
-                    not: {
-                      id: {
-                        '>': 10
-                      }
-                    }
+              or: [
+                {
+                  id: {
+                    not: 1
                   }
-                ]
-              }
+                },
+                {
+                  id: {
+                    '>': 10
+                  }
+                }
+              ]
             },
             {
-              not: {
-                name: 'Tester'
+              name: {
+                not: 'Tester'
               }
             }
           ]
@@ -82,14 +88,14 @@ describe('Tokenizer ::', function() {
         { type: 'IDENTIFIER', value: 'WHERE' },
         { type: 'CONDITION', value: 'OR' },
         { type: 'GROUP', value: 0 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'CONDITION', value: 'OR' },
         { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'id' },
+        { type: 'CONDITION', value: 'NOT' },
         { type: 'VALUE', value: 1 },
+        { type: 'ENDCONDITION', value: 'NOT' },
         { type: 'ENDGROUP', value: 0 },
         { type: 'GROUP', value: 1 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 10 },
@@ -98,47 +104,12 @@ describe('Tokenizer ::', function() {
         { type: 'ENDCONDITION', value: 'OR' },
         { type: 'ENDGROUP', value: 0 },
         { type: 'GROUP', value: 1 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'name' },
+        { type: 'CONDITION', value: 'NOT' },
         { type: 'VALUE', value: 'Tester' },
+        { type: 'ENDCONDITION', value: 'NOT' },
         { type: 'ENDGROUP', value: 1 },
         { type: 'ENDCONDITION', value: 'OR' },
-        { type: 'ENDIDENTIFIER', value: 'WHERE' }
-      ]);
-    });
-
-    it('should generate a valid token array when operators are used', function() {
-      var result = Tokenizer({
-        select: ['*'],
-        from: 'users',
-        where: {
-          and: [
-            {
-              not: {
-                votes: { '>': 100 }
-              }
-            }
-          ]
-        }
-      });
-
-      assert.deepEqual(result, [
-        { type: 'IDENTIFIER', value: 'SELECT' },
-        { type: 'VALUE', value: '*' },
-        { type: 'ENDIDENTIFIER', value: 'SELECT' },
-        { type: 'IDENTIFIER', value: 'FROM' },
-        { type: 'VALUE', value: 'users' },
-        { type: 'ENDIDENTIFIER', value: 'FROM' },
-        { type: 'IDENTIFIER', value: 'WHERE' },
-        { type: 'CONDITION', value: 'AND' },
-        { type: 'GROUP', value: 0 },
-        { type: 'CONDITION', value: 'NOT' },
-        { type: 'KEY', value: 'votes' },
-        { type: 'OPERATOR', value: '>' },
-        { type: 'VALUE', value: 100 },
-        { type: 'ENDOPERATOR', value: '>' },
-        { type: 'ENDGROUP', value: 0 },
-        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
     });
@@ -149,11 +120,15 @@ describe('Tokenizer ::', function() {
         from: 'users',
         where: {
           or: [
-            { name: 'John' },
             {
-              votes: { '>': 100 },
-              not: {
-                title: 'Admin'
+              name: 'John'
+            },
+            {
+              votes: {
+                '>': 100
+              },
+              title: {
+                not: 'Admin'
               }
             }
           ]
@@ -178,9 +153,10 @@ describe('Tokenizer ::', function() {
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 100 },
         { type: 'ENDOPERATOR', value: '>' },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'title' },
+        { type: 'CONDITION', value: 'NOT' },
         { type: 'VALUE', value: 'Admin' },
+        { type: 'ENDCONDITION', value: 'NOT' },
         { type: 'ENDGROUP', value: 1 },
         { type: 'ENDCONDITION', value: 'OR' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }

@@ -80,17 +80,15 @@ describe('Analyzer ::', function() {
           where: {
             and: [
               {
-                not: {
-                  id: {
-                    in: {
-                      select: ['id'],
-                      from: 'users',
-                      where: {
-                        or: [
-                          { status: 'active' },
-                          { name: 'John' }
-                        ]
-                      }
+                id: {
+                  nin: {
+                    select: ['id'],
+                    from: 'users',
+                    where: {
+                      or: [
+                        { status: 'active' },
+                        { name: 'John' }
+                      ]
                     }
                   }
                 }
@@ -114,9 +112,8 @@ describe('Analyzer ::', function() {
             { type: 'IDENTIFIER', value: 'WHERE' },
             { type: 'CONDITION', value: 'AND' },
             [
-              { type: 'CONDITION', value: 'NOT' },
               { type: 'KEY', value: 'id' },
-              { type: 'CONDITION', value: 'IN' },
+              { type: 'CONDITION', value: 'NOTIN' },
               { type: 'SUBQUERY', value: null },
               [
                 [

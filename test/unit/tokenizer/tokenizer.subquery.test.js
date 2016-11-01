@@ -74,17 +74,15 @@ describe('Tokenizer ::', function() {
           where: {
             and: [
               {
-                not: {
-                  id: {
-                    in: {
-                      select: ['id'],
-                      from: 'users',
-                      where: {
-                        or: [
-                          { status: 'active' },
-                          { name: 'John' }
-                        ]
-                      }
+                id: {
+                  nin: {
+                    select: ['id'],
+                    from: 'users',
+                    where: {
+                      or: [
+                        { status: 'active' },
+                        { name: 'John' }
+                      ]
                     }
                   }
                 }
@@ -103,9 +101,8 @@ describe('Tokenizer ::', function() {
           { type: 'IDENTIFIER', value: 'WHERE' },
           { type: 'CONDITION', value: 'AND' },
           { type: 'GROUP', value: 0 },
-          { type: 'CONDITION', value: 'NOT' },
           { type: 'KEY', value: 'id' },
-          { type: 'CONDITION', value: 'IN' },
+          { type: 'CONDITION', value: 'NOTIN' },
           { type: 'SUBQUERY', value: null },
           { type: 'IDENTIFIER', value: 'SELECT' },
           { type: 'VALUE', value: 'id' },
@@ -126,7 +123,7 @@ describe('Tokenizer ::', function() {
           { type: 'ENDCONDITION', value: 'OR' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' },
           { type: 'ENDSUBQUERY', value: null },
-          { type: 'ENDCONDITION', value: 'IN' },
+          { type: 'ENDCONDITION', value: 'NOTIN' },
           { type: 'ENDGROUP', value: 0 },
           { type: 'ENDCONDITION', value: 'AND' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' }
