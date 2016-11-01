@@ -15,10 +15,8 @@ describe('Tokenizer ::', function() {
               }
             },
             {
-              not: {
-                id: {
-                  in: [1, 2, 3]
-                }
+              id: {
+                nin: [1, 2, 3]
               }
             }
           ]
@@ -41,11 +39,10 @@ describe('Tokenizer ::', function() {
         { type: 'ENDOPERATOR', value: 'like' },
         { type: 'ENDGROUP', value: 0 },
         { type: 'GROUP', value: 1 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
-        { type: 'CONDITION', value: 'IN' },
+        { type: 'CONDITION', value: 'NOTIN' },
         { type: 'VALUE', value: [1, 2, 3] },
-        { type: 'ENDCONDITION', value: 'IN' },
+        { type: 'ENDCONDITION', value: 'NOTIN' },
         { type: 'ENDGROUP', value: 1 },
         { type: 'ENDCONDITION', value: 'OR' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }

@@ -10,10 +10,8 @@ describe('Tokenizer ::', function() {
         where: {
           and: [
             {
-              not: {
-                id: {
-                  in: [1, 2, 3]
-                }
+              id: {
+                nin: [1, 2, 3]
               }
             }
           ]
@@ -30,11 +28,10 @@ describe('Tokenizer ::', function() {
         { type: 'IDENTIFIER', value: 'WHERE' },
         { type: 'CONDITION', value: 'AND' },
         { type: 'GROUP', value: 0 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
-        { type: 'CONDITION', value: 'IN' },
+        { type: 'CONDITION', value: 'NOTIN' },
         { type: 'VALUE', value: [1, 2, 3] },
-        { type: 'ENDCONDITION', value: 'IN' },
+        { type: 'ENDCONDITION', value: 'NOTIN' },
         { type: 'ENDGROUP', value: 0 },
         { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
@@ -48,17 +45,13 @@ describe('Tokenizer ::', function() {
         where: {
           or: [
             {
-              not: {
-                id: {
-                  in: [1, 2, 3]
-                }
+              id: {
+                nin: [1, 2, 3]
               }
             },
             {
-              not: {
-                id: {
-                  in: [4, 5, 6]
-                }
+              id: {
+                nin: [4, 5, 6]
               }
             }
           ]
@@ -75,18 +68,16 @@ describe('Tokenizer ::', function() {
         { type: 'IDENTIFIER', value: 'WHERE' },
         { type: 'CONDITION', value: 'OR' },
         { type: 'GROUP', value: 0 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
-        { type: 'CONDITION', value: 'IN' },
+        { type: 'CONDITION', value: 'NOTIN' },
         { type: 'VALUE', value: [1, 2, 3] },
-        { type: 'ENDCONDITION', value: 'IN' },
+        { type: 'ENDCONDITION', value: 'NOTIN' },
         { type: 'ENDGROUP', value: 0 },
         { type: 'GROUP', value: 1 },
-        { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
-        { type: 'CONDITION', value: 'IN' },
+        { type: 'CONDITION', value: 'NOTIN' },
         { type: 'VALUE', value: [4, 5, 6] },
-        { type: 'ENDCONDITION', value: 'IN' },
+        { type: 'ENDCONDITION', value: 'NOTIN' },
         { type: 'ENDGROUP', value: 1 },
         { type: 'ENDCONDITION', value: 'OR' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
