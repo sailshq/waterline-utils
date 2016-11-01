@@ -10,7 +10,13 @@ describe('Analyzer ::', function() {
           status: 'archived'
         },
         where: {
-          publishedDate: { '>': 2000 }
+          and: [
+            {
+              publishedDate: {
+                '>': 2000
+              }
+            }
+          ]
         },
         using: 'books'
       });
@@ -25,9 +31,12 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'publishedDate' },
-          { type: 'OPERATOR', value: '>' },
-          { type: 'VALUE', value: 2000 }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'publishedDate' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 2000 }
+          ]
         ],
         [
           { type: 'IDENTIFIER', value: 'USING' },

@@ -8,10 +8,14 @@ describe('Tokenizer ::', function() {
         select: ['id'],
         from: 'users',
         where: {
-          not: {
-            firstName: 'Test',
-            lastName: 'User'
-          }
+          and: [
+            {
+              not: {
+                firstName: 'Test',
+                lastName: 'User'
+              }
+            }
+          ]
         }
       });
 
@@ -23,12 +27,16 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'users' },
         { type: 'ENDIDENTIFIER', value: 'FROM' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'firstName' },
         { type: 'VALUE', value: 'Test' },
         { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'lastName' },
         { type: 'VALUE', value: 'User' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
     });
@@ -104,9 +112,13 @@ describe('Tokenizer ::', function() {
         select: ['*'],
         from: 'users',
         where: {
-          not: {
-            votes: { '>': 100 }
-          }
+          and: [
+            {
+              not: {
+                votes: { '>': 100 }
+              }
+            }
+          ]
         }
       });
 
@@ -118,11 +130,15 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'users' },
         { type: 'ENDIDENTIFIER', value: 'FROM' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'votes' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 100 },
         { type: 'ENDOPERATOR', value: '>' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
     });

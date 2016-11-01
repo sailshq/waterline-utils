@@ -9,7 +9,11 @@ describe('Analyzer ::', function() {
         del: true,
         from: 'accounts',
         where: {
-          activated: false
+          and: [
+            {
+              activated: false
+            }
+          ]
         }
       });
 
@@ -25,8 +29,11 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'activated' },
-          { type: 'VALUE', value: false }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'activated' },
+            { type: 'VALUE', value: false }
+          ]
         ]
       ]);
     });

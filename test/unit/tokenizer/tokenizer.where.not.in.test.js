@@ -8,11 +8,15 @@ describe('Tokenizer ::', function() {
         select: ['name'],
         from: 'users',
         where: {
-          not: {
-            id: {
-              in: [1, 2, 3]
+          and: [
+            {
+              not: {
+                id: {
+                  in: [1, 2, 3]
+                }
+              }
             }
-          }
+          ]
         }
       });
 
@@ -24,11 +28,15 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'users' },
         { type: 'ENDIDENTIFIER', value: 'FROM' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'CONDITION', value: 'NOT' },
         { type: 'KEY', value: 'id' },
         { type: 'CONDITION', value: 'IN' },
         { type: 'VALUE', value: [1, 2, 3] },
         { type: 'ENDCONDITION', value: 'IN' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
     });

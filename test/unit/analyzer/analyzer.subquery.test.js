@@ -9,18 +9,22 @@ describe('Analyzer ::', function() {
         var tokens = tokenize({
           select: ['*'],
           where: {
-            id: {
-              in: {
-                select: ['id'],
-                from: 'users',
-                where: {
-                  or: [
-                    { status: 'active' },
-                    { name: 'John' }
-                  ]
+            and: [
+              {
+                id: {
+                  in: {
+                    select: ['id'],
+                    from: 'users',
+                    where: {
+                      or: [
+                        { status: 'active' },
+                        { name: 'John' }
+                      ]
+                    }
+                  }
                 }
               }
-            }
+            ]
           },
           from: 'accounts'
         });
@@ -34,27 +38,30 @@ describe('Analyzer ::', function() {
           ],
           [
             { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'KEY', value: 'id' },
-            { type: 'CONDITION', value: 'IN' },
-            { type: 'SUBQUERY', value: null },
+            { type: 'CONDITION', value: 'AND' },
             [
+              { type: 'KEY', value: 'id' },
+              { type: 'CONDITION', value: 'IN' },
+              { type: 'SUBQUERY', value: null },
               [
-                { type: 'IDENTIFIER', value: 'SELECT' },
-                { type: 'VALUE', value: 'id' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'FROM' },
-                { type: 'VALUE', value: 'users' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'WHERE' },
                 [
-                  { type: 'KEY', value: 'status' },
-                  { type: 'VALUE', value: 'active' }
+                  { type: 'IDENTIFIER', value: 'SELECT' },
+                  { type: 'VALUE', value: 'id' }
                 ],
                 [
-                  { type: 'KEY', value: 'name' },
-                  { type: 'VALUE', value: 'John' }
+                  { type: 'IDENTIFIER', value: 'FROM' },
+                  { type: 'VALUE', value: 'users' }
+                ],
+                [
+                  { type: 'IDENTIFIER', value: 'WHERE' },
+                  [
+                    { type: 'KEY', value: 'status' },
+                    { type: 'VALUE', value: 'active' }
+                  ],
+                  [
+                    { type: 'KEY', value: 'name' },
+                    { type: 'VALUE', value: 'John' }
+                  ]
                 ]
               ]
             ]
@@ -71,20 +78,24 @@ describe('Analyzer ::', function() {
           select: ['*'],
           from: 'accounts',
           where: {
-            not: {
-              id: {
-                in: {
-                  select: ['id'],
-                  from: 'users',
-                  where: {
-                    or: [
-                      { status: 'active' },
-                      { name: 'John' }
-                    ]
+            and: [
+              {
+                not: {
+                  id: {
+                    in: {
+                      select: ['id'],
+                      from: 'users',
+                      where: {
+                        or: [
+                          { status: 'active' },
+                          { name: 'John' }
+                        ]
+                      }
+                    }
                   }
                 }
               }
-            }
+            ]
           }
         });
 
@@ -101,28 +112,31 @@ describe('Analyzer ::', function() {
           ],
           [
             { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'CONDITION', value: 'NOT' },
-            { type: 'KEY', value: 'id' },
-            { type: 'CONDITION', value: 'IN' },
-            { type: 'SUBQUERY', value: null },
+            { type: 'CONDITION', value: 'AND' },
             [
+              { type: 'CONDITION', value: 'NOT' },
+              { type: 'KEY', value: 'id' },
+              { type: 'CONDITION', value: 'IN' },
+              { type: 'SUBQUERY', value: null },
               [
-                { type: 'IDENTIFIER', value: 'SELECT' },
-                { type: 'VALUE', value: 'id' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'FROM' },
-                { type: 'VALUE', value: 'users' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'WHERE' },
                 [
-                  { type: 'KEY', value: 'status' },
-                  { type: 'VALUE', value: 'active' }
+                  { type: 'IDENTIFIER', value: 'SELECT' },
+                  { type: 'VALUE', value: 'id' }
                 ],
                 [
-                  { type: 'KEY', value: 'name' },
-                  { type: 'VALUE', value: 'John' }
+                  { type: 'IDENTIFIER', value: 'FROM' },
+                  { type: 'VALUE', value: 'users' }
+                ],
+                [
+                  { type: 'IDENTIFIER', value: 'WHERE' },
+                  [
+                    { type: 'KEY', value: 'status' },
+                    { type: 'VALUE', value: 'active' }
+                  ],
+                  [
+                    { type: 'KEY', value: 'name' },
+                    { type: 'VALUE', value: 'John' }
+                  ]
                 ]
               ]
             ]
@@ -200,13 +214,17 @@ describe('Analyzer ::', function() {
           select: ['name', 'age'],
           from: 'accounts',
           where: {
-            username: {
-              select: ['username'],
-              from: 'users',
-              where: {
-                color: 'accounts.color'
+            and: [
+              {
+                username: {
+                  select: ['username'],
+                  from: 'users',
+                  where: {
+                    color: 'accounts.color'
+                  }
+                }
               }
-            }
+            ]
           }
         });
 
@@ -227,21 +245,24 @@ describe('Analyzer ::', function() {
           ],
           [
             { type: 'IDENTIFIER', value: 'WHERE' },
-            { type: 'KEY', value: 'username' },
-            { type: 'SUBQUERY', value: null },
+            { type: 'CONDITION', value: 'AND' },
             [
+              { type: 'KEY', value: 'username' },
+              { type: 'SUBQUERY', value: null },
               [
-                { type: 'IDENTIFIER', value: 'SELECT' },
-                { type: 'VALUE', value: 'username' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'FROM' },
-                { type: 'VALUE', value: 'users' }
-              ],
-              [
-                { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'color' },
-                { type: 'VALUE', value: 'accounts.color' }
+                [
+                  { type: 'IDENTIFIER', value: 'SELECT' },
+                  { type: 'VALUE', value: 'username' }
+                ],
+                [
+                  { type: 'IDENTIFIER', value: 'FROM' },
+                  { type: 'VALUE', value: 'users' }
+                ],
+                [
+                  { type: 'IDENTIFIER', value: 'WHERE' },
+                  { type: 'KEY', value: 'color' },
+                  { type: 'VALUE', value: 'accounts.color' }
+                ]
               ]
             ]
           ]
@@ -257,7 +278,11 @@ describe('Analyzer ::', function() {
             select: ['age'],
             from: 'users',
             where: {
-              age: 21
+              and: [
+                {
+                  age: 21
+                }
+              ]
             },
             as: 'userage'
           }
@@ -288,8 +313,11 @@ describe('Analyzer ::', function() {
               ],
               [
                 { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'age' },
-                { type: 'VALUE', value: 21 }
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'age' },
+                  { type: 'VALUE', value: 21 }
+                ]
               ],
               [
                 { type: 'IDENTIFIER', value: 'AS' },
