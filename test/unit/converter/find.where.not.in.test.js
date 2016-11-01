@@ -11,7 +11,7 @@ describe('Converter :: ', function() {
             where: {
               firstName: 'Test',
               age: {
-                not: [40, 20, 10]
+                '!=': [40, 20, 10]
               }
             }
           }
