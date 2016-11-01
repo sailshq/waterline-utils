@@ -25,8 +25,8 @@ describe('Converter :: ', function() {
                 firstName: 'Test'
               },
               {
-                not: {
-                  age: 40
+                age: {
+                  not: 40
                 }
               }
             ]
@@ -58,8 +58,8 @@ describe('Converter :: ', function() {
                 firstName: 'Test'
               },
               {
-                not: {
-                  age: 40
+                age: {
+                  not: 40
                 }
               }
             ]
