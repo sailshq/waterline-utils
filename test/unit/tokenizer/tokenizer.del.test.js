@@ -8,7 +8,11 @@ describe('Tokenizer ::', function() {
         del: true,
         from: 'accounts',
         where: {
-          activated: false
+          and: [
+            {
+              activated: false
+            }
+          ]
         }
       });
 
@@ -19,8 +23,12 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'accounts' },
         { type: 'ENDIDENTIFIER', value: 'FROM' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'activated' },
         { type: 'VALUE', value: false },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' }
       ]);
     });

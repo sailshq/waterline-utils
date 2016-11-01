@@ -9,18 +9,22 @@ describe('Tokenizer ::', function() {
           select: ['*'],
           from: 'accounts',
           where: {
-            id: {
-              in: {
-                select: ['id'],
-                from: 'users',
-                where: {
-                  or: [
-                    { status: 'active' },
-                    { name: 'John' }
-                  ]
+            and: [
+              {
+                id: {
+                  in: {
+                    select: ['id'],
+                    from: 'users',
+                    where: {
+                      or: [
+                        { status: 'active' },
+                        { name: 'John' }
+                      ]
+                    }
+                  }
                 }
               }
-            }
+            ]
           }
         });
 
@@ -32,6 +36,8 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'accounts' },
           { type: 'ENDIDENTIFIER', value: 'FROM' },
           { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'AND' },
+          { type: 'GROUP', value: 0 },
           { type: 'KEY', value: 'id' },
           { type: 'CONDITION', value: 'IN' },
           { type: 'SUBQUERY', value: null },
@@ -55,6 +61,8 @@ describe('Tokenizer ::', function() {
           { type: 'ENDIDENTIFIER', value: 'WHERE' },
           { type: 'ENDSUBQUERY', value: null },
           { type: 'ENDCONDITION', value: 'IN' },
+          { type: 'ENDGROUP', value: 0 },
+          { type: 'ENDCONDITION', value: 'AND' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' }
         ]);
       });
@@ -64,20 +72,24 @@ describe('Tokenizer ::', function() {
           select: ['*'],
           from: 'accounts',
           where: {
-            not: {
-              id: {
-                in: {
-                  select: ['id'],
-                  from: 'users',
-                  where: {
-                    or: [
-                      { status: 'active' },
-                      { name: 'John' }
-                    ]
+            and: [
+              {
+                not: {
+                  id: {
+                    in: {
+                      select: ['id'],
+                      from: 'users',
+                      where: {
+                        or: [
+                          { status: 'active' },
+                          { name: 'John' }
+                        ]
+                      }
+                    }
                   }
                 }
               }
-            }
+            ]
           }
         });
 
@@ -89,6 +101,8 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'accounts' },
           { type: 'ENDIDENTIFIER', value: 'FROM' },
           { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'AND' },
+          { type: 'GROUP', value: 0 },
           { type: 'CONDITION', value: 'NOT' },
           { type: 'KEY', value: 'id' },
           { type: 'CONDITION', value: 'IN' },
@@ -113,6 +127,8 @@ describe('Tokenizer ::', function() {
           { type: 'ENDIDENTIFIER', value: 'WHERE' },
           { type: 'ENDSUBQUERY', value: null },
           { type: 'ENDCONDITION', value: 'IN' },
+          { type: 'ENDGROUP', value: 0 },
+          { type: 'ENDCONDITION', value: 'AND' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' }
         ]);
       });
@@ -178,13 +194,17 @@ describe('Tokenizer ::', function() {
           select: ['name', 'age'],
           from: 'accounts',
           where: {
-            username: {
-              select: ['username'],
-              from: 'users',
-              where: {
-                color: 'accounts.color'
+            and: [
+              {
+                username: {
+                  select: ['username'],
+                  from: 'users',
+                  where: {
+                    color: 'accounts.color'
+                  }
+                }
               }
-            }
+            ]
           }
         });
 
@@ -199,6 +219,8 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'accounts' },
           { type: 'ENDIDENTIFIER', value: 'FROM' },
           { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'AND' },
+          { type: 'GROUP', value: 0 },
           { type: 'KEY', value: 'username' },
           { type: 'SUBQUERY', value: null },
           { type: 'IDENTIFIER', value: 'SELECT' },
@@ -212,6 +234,8 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'accounts.color' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' },
           { type: 'ENDSUBQUERY', value: null },
+          { type: 'ENDGROUP', value: 0 },
+          { type: 'ENDCONDITION', value: 'AND' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' }
         ]);
       });
@@ -225,7 +249,11 @@ describe('Tokenizer ::', function() {
             select: ['age'],
             from: 'users',
             where: {
-              age: 21
+              and: [
+                {
+                  age: 21
+                }
+              ]
             },
             as: 'userage'
           }
@@ -247,8 +275,12 @@ describe('Tokenizer ::', function() {
           { type: 'VALUE', value: 'users' },
           { type: 'ENDIDENTIFIER', value: 'FROM' },
           { type: 'IDENTIFIER', value: 'WHERE' },
+          { type: 'CONDITION', value: 'AND' },
+          { type: 'GROUP', value: 0 },
           { type: 'KEY', value: 'age' },
           { type: 'VALUE', value: 21 },
+          { type: 'ENDGROUP', value: 0 },
+          { type: 'ENDCONDITION', value: 'AND' },
           { type: 'ENDIDENTIFIER', value: 'WHERE' },
           { type: 'IDENTIFIER', value: 'AS' },
           { type: 'VALUE', value: 'userage' },

@@ -9,11 +9,15 @@ describe('Analyzer ::', function() {
         select: ['name'],
         from: 'users',
         where: {
-          not: {
-            id: {
-              in: [1, 2, 3]
+          and: [
+            {
+              not: {
+                id: {
+                  in: [1, 2, 3]
+                }
+              }
             }
-          }
+          ]
         }
       });
 
@@ -30,10 +34,13 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'CONDITION', value: 'NOT' },
-          { type: 'KEY', value: 'id' },
-          { type: 'CONDITION', value: 'IN' },
-          { type: 'VALUE', value: [1, 2, 3] }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'id' },
+            { type: 'CONDITION', value: 'IN' },
+            { type: 'VALUE', value: [1, 2, 3] }
+          ]
         ]
       ]);
     });

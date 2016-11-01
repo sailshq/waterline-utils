@@ -8,8 +8,14 @@ describe('Analyzer ::', function() {
       var tokens = tokenize({
         select: ['id'],
         where: {
-          firstName: 'Test',
-          lastName: 'User'
+          and: [
+            {
+              firstName: 'Test'
+            },
+            {
+              lastName: 'User'
+            }
+          ]
         },
         from: 'users'
       });
@@ -23,10 +29,15 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'firstName' },
-          { type: 'VALUE', value: 'Test' },
-          { type: 'KEY', value: 'lastName' },
-          { type: 'VALUE', value: 'User' }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'firstName' },
+            { type: 'VALUE', value: 'Test' },
+          ],
+          [
+            { type: 'KEY', value: 'lastName' },
+            { type: 'VALUE', value: 'User' }
+          ]
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -39,7 +50,13 @@ describe('Analyzer ::', function() {
       var tokens = tokenize({
         select: ['*'],
         where: {
-          votes: { '>': 100 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -53,9 +70,12 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'votes' },
-          { type: 'OPERATOR', value: '>' },
-          { type: 'VALUE', value: 100 }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 100 }
+          ]
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -68,7 +88,18 @@ describe('Analyzer ::', function() {
       var tokens = tokenize({
         select: ['*'],
         where: {
-          votes: { '>': 100, '<': 200 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            },
+            {
+              votes: {
+                '<': 200
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -82,12 +113,17 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'votes' },
-          { type: 'OPERATOR', value: '>' },
-          { type: 'VALUE', value: 100 },
-          { type: 'KEY', value: 'votes' },
-          { type: 'OPERATOR', value: '<' },
-          { type: 'VALUE', value: 200 }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 100 }
+          ],
+          [
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '<' },
+            { type: 'VALUE', value: 200 }
+          ]
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },
@@ -100,8 +136,18 @@ describe('Analyzer ::', function() {
       var tokens = tokenize({
         select: ['*'],
         where: {
-          votes: { '>': 100 },
-          age: { '<': 50 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            },
+            {
+              age: {
+                '<': 50
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -115,12 +161,17 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'votes' },
-          { type: 'OPERATOR', value: '>' },
-          { type: 'VALUE', value: 100 },
-          { type: 'KEY', value: 'age' },
-          { type: 'OPERATOR', value: '<' },
-          { type: 'VALUE', value: 50 }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 100 }
+          ],
+          [
+            { type: 'KEY', value: 'age' },
+            { type: 'OPERATOR', value: '<' },
+            { type: 'VALUE', value: 50 }
+          ]
         ],
         [
           { type: 'IDENTIFIER', value: 'FROM' },

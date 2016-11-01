@@ -7,8 +7,14 @@ describe('Tokenizer ::', function() {
       var result = Tokenizer({
         select: ['id'],
         where: {
-          firstName: 'Test',
-          lastName: 'User'
+          and: [
+            {
+              firstName: 'Test'
+            },
+            {
+              lastName: 'User'
+            }
+          ]
         },
         from: 'users'
       });
@@ -18,10 +24,16 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'id' },
         { type: 'ENDIDENTIFIER', value: 'SELECT' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'firstName' },
         { type: 'VALUE', value: 'Test' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'GROUP', value: 1 },
         { type: 'KEY', value: 'lastName' },
         { type: 'VALUE', value: 'User' },
+        { type: 'ENDGROUP', value: 1 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' },
         { type: 'IDENTIFIER', value: 'FROM' },
         { type: 'VALUE', value: 'users' },
@@ -33,7 +45,13 @@ describe('Tokenizer ::', function() {
       var result = Tokenizer({
         select: ['*'],
         where: {
-          votes: { '>': 100 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -43,10 +61,14 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: '*' },
         { type: 'ENDIDENTIFIER', value: 'SELECT' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'votes' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 100 },
         { type: 'ENDOPERATOR', value: '>' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' },
         { type: 'IDENTIFIER', value: 'FROM' },
         { type: 'VALUE', value: 'users' },
@@ -58,7 +80,18 @@ describe('Tokenizer ::', function() {
       var result = Tokenizer({
         select: ['*'],
         where: {
-          votes: { '>': 100, '<': 200 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            },
+            {
+              votes: {
+                '<': 200
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -68,14 +101,20 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: '*' },
         { type: 'ENDIDENTIFIER', value: 'SELECT' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'votes' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 100 },
         { type: 'ENDOPERATOR', value: '>' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'GROUP', value: 1 },
         { type: 'KEY', value: 'votes' },
         { type: 'OPERATOR', value: '<' },
         { type: 'VALUE', value: 200 },
         { type: 'ENDOPERATOR', value: '<' },
+        { type: 'ENDGROUP', value: 1 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' },
         { type: 'IDENTIFIER', value: 'FROM' },
         { type: 'VALUE', value: 'users' },
@@ -87,8 +126,18 @@ describe('Tokenizer ::', function() {
       var result = Tokenizer({
         select: ['*'],
         where: {
-          votes: { '>': 100 },
-          age: { '<': 50 }
+          and: [
+            {
+              votes: {
+                '>': 100
+              }
+            },
+            {
+              age: {
+                '<': 50
+              }
+            }
+          ]
         },
         from: 'users'
       });
@@ -98,14 +147,20 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: '*' },
         { type: 'ENDIDENTIFIER', value: 'SELECT' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'votes' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 100 },
         { type: 'ENDOPERATOR', value: '>' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'GROUP', value: 1 },
         { type: 'KEY', value: 'age' },
         { type: 'OPERATOR', value: '<' },
         { type: 'VALUE', value: 50 },
         { type: 'ENDOPERATOR', value: '<' },
+        { type: 'ENDGROUP', value: 1 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' },
         { type: 'IDENTIFIER', value: 'FROM' },
         { type: 'VALUE', value: 'users' },

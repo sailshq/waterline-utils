@@ -9,21 +9,33 @@ describe('Analyzer ::', function() {
         select: ['*'],
         from: 'users',
         where: {
-          firstName: 'Bob'
+          and: [
+            {
+              firstName: 'Bob'
+            }
+          ]
         },
         unionAll: [
           {
             select: ['*'],
             from: 'users',
             where: {
-              lastName: 'Smith'
+              and: [
+                {
+                  lastName: 'Smith'
+                }
+              ]
             }
           },
           {
             select: ['*'],
             from: 'users',
             where: {
-              middleName: 'Allen'
+              and: [
+                {
+                  middleName: 'Allen'
+                }
+              ]
             }
           }
         ]
@@ -42,8 +54,11 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'firstName' },
-          { type: 'VALUE', value: 'Bob' }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'firstName' },
+            { type: 'VALUE', value: 'Bob' }
+          ]
         ],
         [
           { type: 'UNION', value: 'UNIONALL' },
@@ -59,8 +74,11 @@ describe('Analyzer ::', function() {
               ],
               [
                 { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'lastName' },
-                { type: 'VALUE', value: 'Smith' }
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'lastName' },
+                  { type: 'VALUE', value: 'Smith' }
+                ]
               ]
             ],
             [
@@ -74,8 +92,11 @@ describe('Analyzer ::', function() {
               ],
               [
                 { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'middleName' },
-                { type: 'VALUE', value: 'Allen' }
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'middleName' },
+                  { type: 'VALUE', value: 'Allen' }
+                ]
               ]
             ]
           ]
@@ -88,14 +109,22 @@ describe('Analyzer ::', function() {
         select: ['*'],
         from: 'users',
         where: {
-          firstName: 'Bob'
+          and: [
+            {
+              firstName: 'Bob'
+            }
+          ]
         },
         unionAll: [
           {
             select: ['*'],
             from: 'users',
             where: {
-              lastName: 'Smith'
+              and: [
+                {
+                  lastName: 'Smith'
+                }
+              ]
             },
             join: [
               {
@@ -111,7 +140,11 @@ describe('Analyzer ::', function() {
             select: ['*'],
             from: 'users',
             where: {
-              middleName: 'Allen'
+              and: [
+                {
+                  middleName: 'Allen'
+                }
+              ]
             },
             join: [
               {
@@ -139,8 +172,11 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'KEY', value: 'firstName' },
-          { type: 'VALUE', value: 'Bob' }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'KEY', value: 'firstName' },
+            { type: 'VALUE', value: 'Bob' }
+          ]
         ],
         [
           { type: 'UNION', value: 'UNIONALL' },
@@ -156,8 +192,11 @@ describe('Analyzer ::', function() {
               ],
               [
                 { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'lastName' },
-                { type: 'VALUE', value: 'Smith' }
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'lastName' },
+                  { type: 'VALUE', value: 'Smith' }
+                ]
               ],
               [
                 { type: 'IDENTIFIER', value: 'JOIN' },
@@ -186,8 +225,11 @@ describe('Analyzer ::', function() {
               ],
               [
                 { type: 'IDENTIFIER', value: 'WHERE' },
-                { type: 'KEY', value: 'middleName' },
-                { type: 'VALUE', value: 'Allen' }
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'middleName' },
+                  { type: 'VALUE', value: 'Allen' }
+                ]
               ],
               [
                 { type: 'IDENTIFIER', value: 'JOIN' },

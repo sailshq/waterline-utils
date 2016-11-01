@@ -9,7 +9,13 @@ describe('Tokenizer ::', function() {
           status: 'archived'
         },
         where: {
-          publishedDate: { '>': 2000 }
+          and: [
+            {
+              publishedDate: {
+                '>': 2000
+              }
+            }
+          ]
         },
         using: 'books'
       });
@@ -20,10 +26,14 @@ describe('Tokenizer ::', function() {
         { type: 'VALUE', value: 'archived' },
         { type: 'ENDIDENTIFIER', value: 'UPDATE' },
         { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
         { type: 'KEY', value: 'publishedDate' },
         { type: 'OPERATOR', value: '>' },
         { type: 'VALUE', value: 2000 },
         { type: 'ENDOPERATOR', value: '>' },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDCONDITION', value: 'AND' },
         { type: 'ENDIDENTIFIER', value: 'WHERE' },
         { type: 'IDENTIFIER', value: 'USING' },
         { type: 'VALUE', value: 'books' },

@@ -9,10 +9,14 @@ describe('Analyzer ::', function() {
         select: ['id'],
         from: 'users',
         where: {
-          not: {
-            firstName: 'Test',
-            lastName: 'User'
-          }
+          and: [
+            {
+              not: {
+                firstName: 'Test',
+                lastName: 'User'
+              }
+            }
+          ]
         }
       });
 
@@ -29,12 +33,15 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'CONDITION', value: 'NOT' },
-          { type: 'KEY', value: 'firstName' },
-          { type: 'VALUE', value: 'Test' },
-          { type: 'CONDITION', value: 'NOT' },
-          { type: 'KEY', value: 'lastName' },
-          { type: 'VALUE', value: 'User' }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'firstName' },
+            { type: 'VALUE', value: 'Test' },
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'lastName' },
+            { type: 'VALUE', value: 'User' }
+          ]
         ]
       ]);
     });
@@ -110,9 +117,13 @@ describe('Analyzer ::', function() {
         select: ['*'],
         from: 'users',
         where: {
-          not: {
-            votes: { '>': 100 }
-          }
+          and: [
+            {
+              not: {
+                votes: { '>': 100 }
+              }
+            }
+          ]
         }
       });
 
@@ -129,10 +140,13 @@ describe('Analyzer ::', function() {
         ],
         [
           { type: 'IDENTIFIER', value: 'WHERE' },
-          { type: 'CONDITION', value: 'NOT' },
-          { type: 'KEY', value: 'votes' },
-          { type: 'OPERATOR', value: '>' },
-          { type: 'VALUE', value: 100 }
+          { type: 'CONDITION', value: 'AND' },
+          [
+            { type: 'CONDITION', value: 'NOT' },
+            { type: 'KEY', value: 'votes' },
+            { type: 'OPERATOR', value: '>' },
+            { type: 'VALUE', value: 100 }
+          ]
         ]
       ]);
     });
