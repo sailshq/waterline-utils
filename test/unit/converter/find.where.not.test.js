@@ -67,5 +67,38 @@ describe('Converter :: ', function() {
         }
       });
     });
+
+    it('should allow flexibility in usage', function() {
+      Test({
+        criteria: {
+          model: 'user',
+          method: 'find',
+          criteria: {
+            where: {
+              firstName: 'Test',
+              age: {
+                '!==': 40
+              }
+            }
+          }
+        },
+        query: {
+          select: [],
+          from: 'user',
+          where: {
+            and: [
+              {
+                firstName: 'Test'
+              },
+              {
+                age: {
+                  '!=': 40
+                }
+              }
+            ]
+          }
+        }
+      });
+    });
   });
 });
