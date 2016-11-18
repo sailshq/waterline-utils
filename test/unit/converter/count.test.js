@@ -1,22 +1,21 @@
 var Test = require('../../support/convert-runner');
 
 describe('Converter :: ', function() {
-  describe('Max :: ', function() {
-    it('should generate a find query using the max modifier', function() {
+  describe('Count :: ', function() {
+    it('should generate a count query', function() {
       Test({
         criteria: {
           model: 'user',
-          method: 'find',
+          method: 'count',
           criteria: {
             where: {
               firstName: 'Test',
               lastName: 'User'
-            },
-            max: 'age'
+            }
           }
         },
         query: {
-          max: 'age',
+          count: true,
           from: 'user',
           where: {
             and: [

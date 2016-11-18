@@ -1,22 +1,22 @@
 var Test = require('../../support/convert-runner');
 
 describe('Converter :: ', function() {
-  describe('Min :: ', function() {
-    it('should generate a find query using the min modifier', function() {
+  describe('Averages :: ', function() {
+    it('should generate a avg query', function() {
       Test({
         criteria: {
           model: 'user',
-          method: 'find',
+          method: 'avg',
           criteria: {
             where: {
               firstName: 'Test',
               lastName: 'User'
-            },
-            min: 'age'
-          }
+            }
+          },
+          values: 'age'
         },
         query: {
-          min: 'age',
+          avg: 'age',
           from: 'user',
           where: {
             and: [

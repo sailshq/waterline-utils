@@ -1,19 +1,19 @@
 var Test = require('../../support/convert-runner');
 
 describe('Converter :: ', function() {
-  describe('Sum :: ', function() {
-    it('should generate a find query using the sum modifier', function() {
+  describe('Sums :: ', function() {
+    it('should generate a sum query', function() {
       Test({
         criteria: {
           model: 'user',
-          method: 'find',
+          method: 'sum',
           criteria: {
             where: {
               firstName: 'Test',
               lastName: 'User'
-            },
-            sum: 'age'
-          }
+            }
+          },
+          values: 'age'
         },
         query: {
           sum: 'age',
