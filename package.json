@@ -17,7 +17,8 @@
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@sailshq/lodash": "3.10.2"
+    "@sailshq/lodash": "3.10.2",
+    "async": "2.0.1"
   },
   "devDependencies": {
     "benchmark": "2.1.1",
