@@ -9,10 +9,16 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              age: {
-                '!=': 40
-              }
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  age: {
+                    '!=': 40
+                  }
+                }
+              ]
             }
           }
         },
@@ -42,10 +48,16 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              age: {
-                '!': 40
-              }
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  age: {
+                    '!=': 40
+                  }
+                }
+              ]
             }
           }
         },
@@ -75,10 +87,16 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              age: {
-                '!==': 40
-              }
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  age: {
+                    '!=': 40
+                  }
+                }
+              ]
             }
           }
         },

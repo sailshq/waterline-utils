@@ -9,7 +9,9 @@ describe('Converter ::', function() {
           method: 'find',
           criteria: {
             where: {
-              id: [1, 2, 3]
+              id: {
+                in: [1, 2, 3]
+              }
             }
           }
         },
@@ -17,13 +19,9 @@ describe('Converter ::', function() {
           select: [],
           from: 'user',
           where: {
-            and: [
-              {
-                id: {
-                  in: [1, 2, 3]
-                }
-              }
-            ]
+            id: {
+              in: [1, 2, 3]
+            }
           }
         }
       });
@@ -38,10 +36,14 @@ describe('Converter ::', function() {
             where: {
               or: [
                 {
-                  id: [1, 2, 3]
+                  id: {
+                    in: [1, 2, 3]
+                  }
                 },
                 {
-                  id: [4, 5, 6]
+                  id: {
+                    in: [4, 5, 6]
+                  }
                 }
               ]
             }

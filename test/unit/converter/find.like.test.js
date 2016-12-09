@@ -9,8 +9,8 @@ describe('Converter ::', function() {
           method: 'find',
           criteria: {
             where: {
-              like: {
-                firstName: '%foo%'
+              firstName: {
+                like: '%foo%'
               }
             }
           }
@@ -19,13 +19,9 @@ describe('Converter ::', function() {
           select: [],
           from: 'user',
           where: {
-            and: [
-              {
-                firstName: {
-                  like: '%foo%'
-                }
-              }
-            ]
+            firstName: {
+              like: '%foo%'
+            }
           }
         }
       });
