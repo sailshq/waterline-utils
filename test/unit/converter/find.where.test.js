@@ -9,8 +9,14 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              lastName: 'User'
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  lastName: 'User'
+                }
+              ]
             }
           }
         },
@@ -48,13 +54,9 @@ describe('Converter :: ', function() {
           select: [],
           from: 'user',
           where: {
-            and: [
-              {
-                votes: {
-                  '>': 100
-                }
-              }
-            ]
+            votes: {
+              '>': 100
+            }
           }
         }
       });
@@ -67,12 +69,18 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              votes: {
-                '>': 100
-              },
-              age: {
-                '<': 50
-              }
+              and: [
+                {
+                  votes: {
+                    '>': 100
+                  }
+                },
+                {
+                  age: {
+                    '<': 50
+                  }
+                }
+              ]
             }
           }
         },

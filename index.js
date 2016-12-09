@@ -8,5 +8,6 @@ module.exports = {
     queryCache: require('./lib/joins/query-cache'),
     detectChildrenRecords: require('./lib/joins/detect-children-records'),
     convertJoinCriteria: require('./lib/joins/convert-join-criteria')
-  }
+  },
+  autoMigrations: require('./lib/auto-migrations')
 };

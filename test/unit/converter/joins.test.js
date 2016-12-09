@@ -54,11 +54,7 @@ describe('Converter :: ', function() {
               }
             ],
             where: {
-              and: [
-                {
-                  type: 'beta user'
-                }
-              ]
+              type: 'beta user'
             },
             leftOuterJoin: [
               {
@@ -126,11 +122,7 @@ describe('Converter :: ', function() {
               }
             ],
             where: {
-              and: [
-                {
-                  type: 'beta user'
-                }
-              ]
+              type: 'beta user'
             },
             leftOuterJoin: [
               {
@@ -211,11 +203,7 @@ describe('Converter :: ', function() {
               }
             ],
             where: {
-              and: [
-                {
-                  type: 'beta user'
-                }
-              ]
+              type: 'beta user'
             },
             leftOuterJoin: [
               {

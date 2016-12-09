@@ -9,10 +9,16 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              age: {
-                '!=': [40, 20, 10]
-              }
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  age: {
+                    nin: [40, 20, 10]
+                  }
+                }
+              ]
             }
           }
         },
@@ -42,10 +48,16 @@ describe('Converter :: ', function() {
           method: 'find',
           criteria: {
             where: {
-              firstName: 'Test',
-              age: {
-                '!': [40, 20, 10]
-              }
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  age: {
+                    nin: [40, 20, 10]
+                  }
+                }
+              ]
             }
           }
         },

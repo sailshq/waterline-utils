@@ -9,8 +9,14 @@ describe('Converter :: ', function() {
           method: 'count',
           criteria: {
             where: {
-              firstName: 'Test',
-              lastName: 'User'
+              and: [
+                {
+                  firstName: 'Test'
+                },
+                {
+                  lastName: 'User'
+                }
+              ]
             }
           }
         },
