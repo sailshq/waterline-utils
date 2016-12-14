@@ -4,6 +4,7 @@ var Converter = require('../../lib/query/converter');
 
 module.exports = function(test) {
   var criteria = test.criteria;
+  var joins = test.joins;
   var query = test.query;
 
   if (!criteria || !query) {
@@ -14,6 +15,7 @@ module.exports = function(test) {
     model: criteria.model,
     method: criteria.method,
     criteria: criteria.criteria || {},
+    joins: joins || [],
     values: criteria.values || {}
   });
 
