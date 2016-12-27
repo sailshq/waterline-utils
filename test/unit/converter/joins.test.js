@@ -32,8 +32,10 @@ describe('Converter :: ', function() {
               instructions: [
                 {
                   parent: 'user',
+                  parentAlias: 'user__pet',
                   parentKey: 'pet_id',
                   child: 'pet',
+                  childAlias: 'pet__pet',
                   childKey: 'id',
                   alias: 'pet',
                   removeParentKey: true,
@@ -47,7 +49,7 @@ describe('Converter :: ', function() {
             }
           ],
           query: {
-            select: ['pet.id as pet__id', 'pet.name as pet__name', 'pet.breed as pet__breed'],
+            select: ['pet__pet.id as pet__id', 'pet__pet.name as pet__name', 'pet__pet.breed as pet__breed'],
             from: 'user',
             orderBy: [
               {
@@ -59,10 +61,10 @@ describe('Converter :: ', function() {
             },
             leftOuterJoin: [
               {
-                from: 'pet',
+                from: 'pet as pet__pet',
                 on: {
                   user: 'pet_id',
-                  pet: 'id'
+                  'pet__pet': 'id'
                 }
               }
             ]
@@ -102,8 +104,10 @@ describe('Converter :: ', function() {
               instructions: [
                 {
                   parent: 'user',
+                  parentAlias: 'user__pets',
                   parentKey: 'id',
                   child: 'pet',
+                  childAlias: 'pet__pets',
                   childKey: 'user_id',
                   alias: 'pets',
                   removeParentKey: true,
@@ -117,7 +121,7 @@ describe('Converter :: ', function() {
             }
           ],
           query: {
-            select: ['pet.id as pets__id', 'pet.name as pets__name', 'pet.breed as pets__breed', 'pet.user_id as pets__user_id'],
+            select: ['pet__pets.id as pets__id', 'pet__pets.name as pets__name', 'pet__pets.breed as pets__breed', 'pet__pets.user_id as pets__user_id'],
             from: 'user',
             orderBy: [
               {
@@ -129,10 +133,10 @@ describe('Converter :: ', function() {
             },
             leftOuterJoin: [
               {
-                from: 'pet',
+                from: 'pet as pet__pets',
                 on: {
                   user: 'id',
-                  pet: 'user_id'
+                  'pet__pets': 'user_id'
                 }
               }
             ]
@@ -174,8 +178,10 @@ describe('Converter :: ', function() {
               instructions: [
                 {
                   parent: 'user',
+                  parentAlias: 'user__pets',
                   parentKey: 'id',
                   child: 'user_pets__pets_users',
+                  childAlias: 'user_pets__pets_users__pets',
                   childKey: 'user_pets',
                   alias: 'pets',
                   removeParentKey: false,
@@ -184,8 +190,10 @@ describe('Converter :: ', function() {
                 },
                 {
                   parent: 'user_pets__pets_users',
+                  parentAlias: 'user_pets__pets_users__pets',
                   parentKey: 'pet_users',
                   child: 'pet',
+                  childAlias: 'pet_pets',
                   childKey: 'id',
                   alias: 'pets',
                   removeParentKey: false,
@@ -199,7 +207,7 @@ describe('Converter :: ', function() {
             }
           ],
           query: {
-            select: ['pet.id as pets__id', 'pet.name as pets__name', 'pet.breed as pets__breed'],
+            select: ['pet_pets.id as pets__id', 'pet_pets.name as pets__name', 'pet_pets.breed as pets__breed'],
             from: 'user',
             orderBy: [
               {
@@ -211,17 +219,17 @@ describe('Converter :: ', function() {
             },
             leftOuterJoin: [
               {
-                from: 'user_pets__pets_users',
+                from: 'user_pets__pets_users as user_pets__pets_users__pets',
                 on: {
                   user: 'id',
-                  'user_pets__pets_users': 'user_pets'
+                  'user_pets__pets_users__pets': 'user_pets'
                 }
               },
               {
-                from: 'pet',
+                from: 'pet as pet_pets',
                 on: {
-                  pet: 'id',
-                  'user_pets__pets_users': 'pet_users'
+                  'pet_pets': 'id',
+                  'user_pets__pets_users__pets': 'pet_users'
                 }
               }
             ]
