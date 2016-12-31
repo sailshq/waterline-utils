@@ -9,5 +9,6 @@ module.exports = {
     detectChildrenRecords: require('./lib/joins/detect-children-records'),
     convertJoinCriteria: require('./lib/joins/convert-join-criteria')
   },
-  autoMigrations: require('./lib/auto-migrations')
+  autoMigrations: require('./lib/auto-migrations'),
+  eachRecordDeep: require('./lib/each-record-deep')
 };
