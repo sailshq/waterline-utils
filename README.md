@@ -13,7 +13,7 @@ To report a bug, [click here](http://sailsjs.com/bugs).
 
 ## Contributing &nbsp; [![Build Status](https://travis-ci.org/treelinehq/waterline-utils.svg?branch=master)](https://travis-ci.org/treelinehq/waterline-utils)
 
-Please observe the guidelines and conventions laid out in the [Sails project contribution guide](http://sailsjs.com/contribute) when opening issues or submitting pull requests.
+Please observe the guidelines and conventions laid out in the [Sails project contribution guide](http://sailsjs.com/documentation/contributing) when opening issues or submitting pull requests.
 
 [![NPM package info](https://nodei.co/npm/waterline-utils.png?downloads=true)](http://npmjs.com/package/waterline-utils)
 
