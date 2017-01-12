@@ -12,7 +12,7 @@ describe('Benchmark :: Parse', function() {
   this.timeout(240000);
 
   it('should be performant enough', function() {
-    runBenchmarks('Analyzer.execSync()', [
+    runBenchmarks('Parse query and return token set', [
       function analyzeSelectSet() {
         var tokens = Tokenizer({
           select: '*',

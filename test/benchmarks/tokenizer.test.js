@@ -11,7 +11,7 @@ describe('Benchmark :: Tokenizer', function() {
   this.timeout(240000);
 
   it('should be performant enough', function() {
-    runBenchmarks('Tokenizer.execSync()', [
+    runBenchmarks('Tokenizer', [
       function buildSelectTokenSet() {
         Tokenizer({
           select: '*',
