@@ -47,7 +47,7 @@ describe('Benchmark :: Analyzer', function() {
   });
 
   it('should be performant enough', function() {
-    runBenchmarks('Analyzer.execSync()', [
+    runBenchmarks('Analyzer', [
       function analyzeSelectSet() {
         Analyzer(tokens.select);
       },
