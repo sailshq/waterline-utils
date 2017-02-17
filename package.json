@@ -1,6 +1,6 @@
 {
   "name": "waterline-utils",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "Various utilities for working with Waterline queries and adapters.",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
@@ -10,15 +10,19 @@
     "benchmark": "node ./node_modules/mocha/bin/mocha test/benchmarks --recursive"
   },
   "keywords": [
-    "waterline query parser",
+    "waterline-query-parser",
+    "joins",
+    "auto-migrations",
+    "sql",
     "waterline",
     "sails"
   ],
   "author": "Cody Stoltman <particlebanana@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@sailshq/lodash": "3.10.2",
-    "async": "2.0.1"
+    "@sailshq/lodash": "^3.10.2",
+    "async": "2.0.1",
+    "flaverr": "^1.1.1"
   },
   "devDependencies": {
     "benchmark": "2.1.1",
