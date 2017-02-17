@@ -10,7 +10,10 @@
     "benchmark": "node ./node_modules/mocha/bin/mocha test/benchmarks --recursive"
   },
   "keywords": [
-    "waterline query parser",
+    "waterline-query-parser",
+    "joins",
+    "auto-migrations",
+    "sql",
     "waterline",
     "sails"
   ],
