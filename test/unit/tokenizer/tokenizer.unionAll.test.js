@@ -95,5 +95,66 @@ describe('Tokenizer ::', function() {
         { type: 'ENDUNION', value: 'UNIONALL' }
       ]);
     });
+
+    it('should generate a valid token array for a UNIONALL array with nested where clause', function() {
+      var result = Tokenizer({
+        unionAll: [
+          {
+            select: '*',
+            from: 'users',
+            orderBy: [
+              {
+                id: 'ASC'
+              }
+            ],
+            where: {
+              and: [
+                {
+                  isDeleted: false
+                },
+                {
+                  lastName: {
+                    like: '%a%'
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      });
+
+      assert.deepEqual(result,  [
+        { type: 'UNION', value: 'UNIONALL' },
+        { type: 'GROUP', value: 0 },
+        { type: 'SUBQUERY', value: null },
+        { type: 'IDENTIFIER', value: 'SELECT' },
+        { type: 'VALUE', value: '*' },
+        { type: 'ENDIDENTIFIER', value: 'SELECT' },
+        { type: 'IDENTIFIER', value: 'FROM' },
+        { type: 'VALUE', value: 'users' },
+        { type: 'ENDIDENTIFIER', value: 'FROM' },
+        { type: 'IDENTIFIER', value: 'ORDERBY' },
+        { type: 'KEY', value: 'id' },
+        { type: 'VALUE', value: 'ASC' },
+        { type: 'ENDIDENTIFIER', value: 'ORDERBY' },
+        { type: 'IDENTIFIER', value: 'WHERE' },
+        { type: 'CONDITION', value: 'AND' },
+        { type: 'GROUP', value: 0 },
+        { type: 'KEY', value: 'isDeleted' },
+        { type: 'VALUE', value: false },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'GROUP', value: 1 },
+        { type: 'KEY', value: 'lastName' },
+        { type: 'OPERATOR', value: 'like' },
+        { type: 'VALUE', value: '%a%' },
+        { type: 'ENDOPERATOR', value: 'like' },
+        { type: 'ENDGROUP', value: 1 },
+        { type: 'ENDCONDITION', value: 'AND' },
+        { type: 'ENDIDENTIFIER', value: 'WHERE' },
+        { type: 'ENDSUBQUERY', value: null },
+        { type: 'ENDGROUP', value: 0 },
+        { type: 'ENDUNION', value: 'UNIONALL' }
+      ]);
+    });
   });
 });
