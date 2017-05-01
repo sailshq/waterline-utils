@@ -251,5 +251,70 @@ describe('Analyzer ::', function() {
         ]
       ]);
     });
+
+    it('should generate a valid group for UNIONALL statements with nested WHERE criteria', function() {
+      var tokens = tokenize({
+        unionAll: [
+          {
+            select: '*',
+            from: 'users',
+            orderBy: [
+              {
+                id: 'ASC'
+              }
+            ],
+            where: {
+              and: [
+                {
+                  isDeleted: false
+                },
+                {
+                  lastName: {
+                    like: '%a%'
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      });
+
+      var result = Analyzer(tokens);
+      assert.deepEqual(result, [
+        [
+          { type: 'UNION', value: 'UNIONALL' },
+          [
+            [
+              [
+                { type: 'IDENTIFIER', value: 'SELECT' },
+                { type: 'VALUE', value: '*' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'FROM' },
+                { type: 'VALUE', value: 'users' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'ORDERBY' },
+                { type: 'KEY', value: 'id' },
+                { type: 'VALUE', value: 'ASC' }
+              ],
+              [
+                { type: 'IDENTIFIER', value: 'WHERE' },
+                { type: 'CONDITION', value: 'AND' },
+                [
+                  { type: 'KEY', value: 'isDeleted' },
+                  { type: 'VALUE', value: false }
+                ],
+                [
+                  { type: 'KEY', value: 'lastName' },
+                  { type: 'OPERATOR', value: 'like' },
+                  { type: 'VALUE', value: '%a%' }
+                ]
+              ]
+            ]
+          ]
+        ]
+      ]);
+    });
   });
 });
