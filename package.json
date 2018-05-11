@@ -32,6 +32,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:treelinehq/waterline-utils.git"
+    "url": "git@github.com:sailshq/waterline-utils.git"
   }
 }
