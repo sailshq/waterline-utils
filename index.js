@@ -10,5 +10,6 @@ module.exports = {
     convertJoinCriteria: require('./lib/joins/convert-join-criteria')
   },
   autoMigrations: require('./lib/auto-migrations'),
-  eachRecordDeep: require('./lib/each-record-deep')
+  eachRecordDeep: require('./lib/each-record-deep'),
+  normalizeDatastoreConfig: require('./lib/normalize-datastore-config'),
 };
