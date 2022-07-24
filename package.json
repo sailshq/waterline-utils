@@ -1,13 +1,13 @@
 {
   "name": "waterline-utils",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "Various utilities for working with Waterline queries and adapters.",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
-    "fasttest": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
+    "test": "node run mocha test/unit --recursive",
+    "fasttest": "node run mocha test/unit --recursive",
     "pretest": "npm run lint",
     "lint": "eslint lib test",
-    "benchmark": "node ./node_modules/mocha/bin/mocha test/benchmarks --recursive"
+    "benchmark": "node run mocha test/benchmarks --recursive"
   },
   "keywords": [
     "waterline-query-parser",
@@ -21,15 +21,15 @@
   "license": "MIT",
   "dependencies": {
     "@sailshq/lodash": "^3.10.2",
-    "async": "2.0.1",
+    "async": "^3.2.4",
     "flaverr": "^1.1.1",
     "fs-extra": "0.30.0",
     "qs": "6.4.0"
   },
   "devDependencies": {
     "benchmark": "2.1.1",
-    "eslint": "4.19.1",
-    "mocha": "3.0.2"
+    "eslint": "^8.20.0",
+    "mocha": "^10.0.0"
   },
   "repository": {
     "type": "git",
