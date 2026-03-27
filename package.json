@@ -1,6 +1,6 @@
 {
   "name": "waterline-utils",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Various utilities for working with Waterline queries and adapters.",
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha test/unit --recursive",
